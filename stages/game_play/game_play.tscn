@@ -1,5 +1,98 @@
-[gd_scene format=3 uid="uid://b6ay7xgem5y01"]
+[gd_scene load_steps=17 format=3 uid="uid://b6ay7xgem5y01"]
+
+[ext_resource type="PackedScene" uid="uid://hujbsv530rt3" path="res://stages/game_play/levels/level.tscn" id="1_1lhju"]
+[ext_resource type="PackedScene" uid="uid://5780rpyw63ld" path="res://actors/player/player.tscn" id="1_8vkgn"]
+[ext_resource type="Script" uid="uid://d2xn7xq0twlkw" path="res://stages/game_play/game_play.gd" id="1_irr8f"]
+[ext_resource type="Resource" uid="uid://my5uhimvlnsg" path="res://stages/game_play/levels/foundation_level.tres" id="2_irr8f"]
+[ext_resource type="Script" uid="uid://bq1af7lgj3cre" path="res://stages/game_play/levels/level_data.gd" id="3_nwoy8"]
+[ext_resource type="PackedScene" uid="uid://dxsce0j7nusjo" path="res://stages/game_play/door.tscn" id="3_pgcq5"]
+[ext_resource type="PackedScene" uid="uid://ce3woxeak28xn" path="res://actors/monsters/vermin/vermin.tscn" id="4_7lfro"]
+[ext_resource type="Texture2D" uid="uid://vu885svxvnlg" path="res://assets/environment/side_wall.png" id="6_kg3al"]
+[ext_resource type="Script" uid="uid://dnm08tv1e65nm" path="res://stages/game_play/follow_camera.gd" id="7_bryae"]
+[ext_resource type="Script" uid="uid://ddrtb7s18y2eg" path="res://stages/game_play/side_walls.gd" id="7_d0j52"]
+[ext_resource type="PackedScene" uid="uid://bstkhxhwyxwwn" path="res://user_interface/game_over_dialog.tscn" id="8_hw2jd"]
+[ext_resource type="PackedScene" uid="uid://dqeaxtxhsgmb3" path="res://user_interface/player_hud.tscn" id="9_mkbwk"]
+[ext_resource type="PackedScene" uid="uid://cepjlr2w1fm36" path="res://user_interface/monster_hud.tscn" id="10_7m63q"]
+[ext_resource type="Script" uid="uid://ct2or2gt2ih0b" path="res://addons/finite_state_machine/finite_state.gd" id="11_8tvfk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d0j52"]
+texture = ExtResource("6_kg3al")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+4:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7lfro"]
+sources/0 = SubResource("TileSetAtlasSource_d0j52")
 
 [node name="GamePlay" type="Node2D"]
+script = ExtResource("1_irr8f")
+level_scene = ExtResource("1_1lhju")
+door_scene = ExtResource("3_pgcq5")
+vermin_scene = ExtResource("4_7lfro")
+player_scene = ExtResource("1_8vkgn")
+level_data = Array[ExtResource("3_nwoy8")]([ExtResource("2_irr8f")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverDialog" parent="CanvasLayer" instance=ExtResource("8_hw2jd")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -145.0
+offset_right = 76.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerHud" parent="CanvasLayer" instance=ExtResource("9_mkbwk")]
+unique_name_in_owner = true
+
+[node name="MonsterHud" parent="CanvasLayer" instance=ExtResource("10_7m63q")]
+unique_name_in_owner = true
+
+[node name="Levels" type="Node2D" parent="."]
+position = Vector2(0, -12)
+
+[node name="SideWalls" type="TileMapLayer" parent="."]
+z_index = 2
+position = Vector2(0, -512)
+tile_set = SubResource("TileSet_7lfro")
+script = ExtResource("7_d0j52")
+
+[node name="FollowCamera" type="Camera2D" parent="."]
+script = ExtResource("7_bryae")
+
+[node name="States" type="Node" parent="."]
+
+[node name="Loading" type="Node" parent="States"]
+script = ExtResource("11_8tvfk")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[node name="Playing" type="Node" parent="States"]
+script = ExtResource("11_8tvfk")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[node name="Restarting" type="Node" parent="States"]
+script = ExtResource("11_8tvfk")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[node name="GameOver" type="Node" parent="States"]
+script = ExtResource("11_8tvfk")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[connection signal="quit_button_pressed" from="CanvasLayer/GameOverDialog" to="." method="_on_game_over_dialog_quit_button_pressed"]
+[connection signal="try_again_button_pressed" from="CanvasLayer/GameOverDialog" to="." method="_on_game_over_dialog_try_again_button_pressed"]

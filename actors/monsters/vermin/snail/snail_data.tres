@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ActorData" load_steps=3 format=3 uid="uid://cghto4vptboto"]
+
+[ext_resource type="SpriteFrames" uid="uid://cxt0kmv6u6up8" path="res://actors/monsters/vermin/snail/snail_sprite_frames.tres" id="1_myb63"]
+[ext_resource type="Script" uid="uid://bsgmyk2curetq" path="res://actors/actor_data.gd" id="2_vsq4c"]
+
+[resource]
+script = ExtResource("2_vsq4c")
+actor_name = "Snail"
+description = "A slow moving snail"
+attack = 1
+defense = 1
+speed = 5.0
+sprite_frames = ExtResource("1_myb63")
+metadata/_custom_type_script = "uid://bsgmyk2curetq"

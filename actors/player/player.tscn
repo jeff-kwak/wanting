@@ -1,0 +1,144 @@
+[gd_scene load_steps=23 format=3 uid="uid://5780rpyw63ld"]
+
+[ext_resource type="Script" uid="uid://bn33adcbayymc" path="res://actors/player/player.gd" id="1_nvxhs"]
+[ext_resource type="PackedScene" uid="uid://ce60s1wpy3qha" path="res://affectors/abilities/move/move.tscn" id="2_ax26v"]
+[ext_resource type="Resource" uid="uid://biukwjk875e6w" path="res://actors/player/player_stats.tres" id="2_lsqbn"]
+[ext_resource type="Texture2D" uid="uid://8w7syfluspdy" path="res://assets/0x72/0x72_DungeonTilesetII_v1.7.png" id="3_ax26v"]
+[ext_resource type="PackedScene" uid="uid://c1cd3c3lji2is" path="res://affectors/abilities/change_direction/change_direction.tscn" id="4_15y17"]
+[ext_resource type="PackedScene" uid="uid://c8d1l00i3ur4x" path="res://affectors/abilities/pickup/pickup.tscn" id="5_bop6h"]
+[ext_resource type="Script" uid="uid://ct2or2gt2ih0b" path="res://addons/finite_state_machine/finite_state.gd" id="6_bop6h"]
+[ext_resource type="PackedScene" uid="uid://ccf1x2nn1ntpw" path="res://affectors/abilities/drop_item/drop_item.tscn" id="6_ssdk0"]
+[ext_resource type="PackedScene" uid="uid://6ty7busndfsp" path="res://affectors/abilities/exit_level/exit_level.tscn" id="7_388e2"]
+[ext_resource type="PackedScene" uid="uid://docb3cl628uvj" path="res://affectors/status_effects/hurt/hurt.tscn" id="7_lsln6"]
+[ext_resource type="PackedScene" uid="uid://c34uwtsts7g0v" path="res://affectors/abilities/attack/attack.tscn" id="8_hiosj"]
+[ext_resource type="PackedScene" uid="uid://dccr34nb8ugxi" path="res://affectors/status_effects/invincible/invincible.tscn" id="10_7aotg"]
+[ext_resource type="Script" uid="uid://0ao5t7kvwjt3" path="res://affectors/status_effects/invincible/invincible.gd" id="11_k67x5"]
+[ext_resource type="Material" uid="uid://crfxfisbarxla" path="res://actors/actor_shader.tres" id="13_k67x5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiosj"]
+atlas = ExtResource("3_ax26v")
+region = Rect2(256, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssdk0"]
+atlas = ExtResource("3_ax26v")
+region = Rect2(160, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsqbn"]
+atlas = ExtResource("3_ax26v")
+region = Rect2(192, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6p1w3"]
+atlas = ExtResource("3_ax26v")
+region = Rect2(208, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15y17"]
+atlas = ExtResource("3_ax26v")
+region = Rect2(224, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bop6h"]
+atlas = ExtResource("3_ax26v")
+region = Rect2(240, 32, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ilk7j"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_hiosj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssdk0")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsqbn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6p1w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15y17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bop6h")
+}],
+"loop": true,
+"name": &"run",
+"speed": 18.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ax26v"]
+size = Vector2(10, 18)
+
+[node name="Player" type="Node2D" groups=["Player"]]
+z_index = 2
+script = ExtResource("1_nvxhs")
+flash_times = 5
+data = ExtResource("2_lsqbn")
+metadata/_edit_vertical_guides_ = [0.0]
+
+[node name="Abilities" type="Node" parent="."]
+
+[node name="Move" parent="Abilities" instance=ExtResource("2_ax26v")]
+
+[node name="ChangeDirection" parent="Abilities" instance=ExtResource("4_15y17")]
+
+[node name="PickupItem" parent="Abilities" instance=ExtResource("5_bop6h")]
+cool_down = 0.3
+
+[node name="DropItem" parent="Abilities" instance=ExtResource("6_ssdk0")]
+
+[node name="ExitLevel" parent="Abilities" instance=ExtResource("7_388e2")]
+cool_down = 0.0
+is_enabled = true
+
+[node name="Attack" parent="Abilities" instance=ExtResource("8_hiosj")]
+
+[node name="Effects" type="Node" parent="."]
+
+[node name="Hurt" parent="Effects" instance=ExtResource("7_lsln6")]
+cool_down = 0.5
+
+[node name="Invincible" parent="Effects" instance=ExtResource("10_7aotg")]
+script = ExtResource("11_k67x5")
+
+[node name="States" type="Node" parent="."]
+
+[node name="Loading" type="Node" parent="States"]
+script = ExtResource("6_bop6h")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[node name="Moving" type="Node" parent="States"]
+script = ExtResource("6_bop6h")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[node name="ExitingLevel" type="Node" parent="States"]
+script = ExtResource("6_bop6h")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[node name="Dead" type="Node" parent="States"]
+script = ExtResource("6_bop6h")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[node name="Visual" type="AnimatedSprite2D" parent="."]
+material = ExtResource("13_k67x5")
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_ilk7j")
+animation = &"death"
+autoplay = "run"
+frame = 1
+frame_progress = 1.0
+
+[node name="Body" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_mask = 5393
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_ax26v")
+
+[connection signal="area_entered" from="Body" to="." method="_on_body_area_entered"]
+[connection signal="area_exited" from="Body" to="." method="_on_body_area_exited"]

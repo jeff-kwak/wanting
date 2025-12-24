@@ -138,3 +138,6 @@ class ConfigPermit:
     func on_input(callback: Callable) -> ConfigPermit:
         _fsm._state_references[_for_this_state].add_on_input(callback)
         return self
+
+    func final_state() -> void:
+        _fsm._permitted[_for_this_state] = { }

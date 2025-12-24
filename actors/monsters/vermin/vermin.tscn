@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://ce3woxeak28xn"]
+
+[ext_resource type="Script" uid="uid://glo3cvqatf4s" path="res://actors/monsters/vermin/vermin.gd" id="1_xbq0e"]
+[ext_resource type="PackedScene" uid="uid://ce60s1wpy3qha" path="res://affectors/abilities/move/move.tscn" id="2_rix7b"]
+[ext_resource type="PackedScene" uid="uid://c1cd3c3lji2is" path="res://affectors/abilities/change_direction/change_direction.tscn" id="3_wfhxm"]
+[ext_resource type="PackedScene" uid="uid://c34uwtsts7g0v" path="res://affectors/abilities/attack/attack.tscn" id="4_xbq0e"]
+[ext_resource type="PackedScene" uid="uid://docb3cl628uvj" path="res://affectors/status_effects/hurt/hurt.tscn" id="5_rix7b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ylxbp"]
+size = Vector2(12, 22)
+
+[node name="Vermin" type="Node2D" groups=["Monster", "Vermin"]]
+z_index = 1
+script = ExtResource("1_xbq0e")
+
+[node name="Abilities" type="Node" parent="."]
+
+[node name="Move" parent="Abilities" instance=ExtResource("2_rix7b")]
+
+[node name="ChangeDirection" parent="Abilities" instance=ExtResource("3_wfhxm")]
+
+[node name="Attack" parent="Abilities" instance=ExtResource("4_xbq0e")]
+
+[node name="Hurt" parent="Abilities" instance=ExtResource("5_rix7b")]
+
+[node name="Effects" type="Node" parent="."]
+
+[node name="Monster" type="Area2D" parent="." groups=["Monster"]]
+position = Vector2(0, -16)
+collision_layer = 16
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Monster"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_ylxbp")
+debug_color = Color(0.92871636, 0.19566953, 0.4653691, 0.41960785)
+
+[node name="Visual" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+
+[connection signal="area_entered" from="Monster" to="." method="_on_body_area_entered"]
+[connection signal="area_exited" from="Monster" to="." method="_on_body_area_exited"]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce60s1wpy3qha"]
+
+[ext_resource type="Script" uid="uid://1y58g7tgxsj4" path="res://affectors/abilities/move/move.gd" id="1_q8y70"]
+
+[node name="Move" type="Node"]
+script = ExtResource("1_q8y70")
+is_enabled = true

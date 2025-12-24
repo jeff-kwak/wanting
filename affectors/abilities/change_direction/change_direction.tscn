@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1cd3c3lji2is"]
+
+[ext_resource type="Script" uid="uid://bxsr8hthhd1uy" path="res://affectors/abilities/change_direction/change_direction.gd" id="1_g1ost"]
+
+[node name="ChangeDirection" type="Node"]
+script = ExtResource("1_g1ost")

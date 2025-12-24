@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccf1x2nn1ntpw"]
+
+[ext_resource type="Script" uid="uid://bij6362ff7f6l" path="res://affectors/abilities/drop_item/drop_item.gd" id="1_e3iy5"]
+
+[node name="DropItem" type="Node"]
+script = ExtResource("1_e3iy5")

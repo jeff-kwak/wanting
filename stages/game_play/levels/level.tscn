@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://hujbsv530rt3"]
+
+[ext_resource type="Script" uid="uid://b1q2efqasr1f0" path="res://stages/game_play/levels/level.gd" id="1_ylkm3"]
+[ext_resource type="PackedScene" uid="uid://3dkh3t611a6s" path="res://stages/game_play/teleporter.tscn" id="2_6fe18"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_ylkm3")
+
+[node name="WallsAndFloors" type="TileMapLayer" parent="."]
+
+[node name="LeftTeleporter" parent="." node_paths=PackedStringArray("destination") instance=ExtResource("2_6fe18")]
+position = Vector2(-152, 12)
+destination = NodePath("../RightTeleporter")
+
+[node name="RightTeleporter" parent="." node_paths=PackedStringArray("destination") instance=ExtResource("2_6fe18")]
+position = Vector2(152, 12)
+destination = NodePath("../LeftTeleporter")
+exit_direction = -1.0

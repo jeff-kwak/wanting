@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbpmvjrfx731k"]
+
+[ext_resource type="Script" uid="uid://ho11x2pur1gu" path="res://stages/game_play/bumper.gd" id="1_rodsa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8vkgn"]
+size = Vector2(20, 18)
+
+[node name="Bumper" type="Area2D"]
+collision_layer = 256
+collision_mask = 17
+script = ExtResource("1_rodsa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_8vkgn")
+debug_color = Color(0.2521429, 0.6346581, 0.08270853, 0.41960785)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

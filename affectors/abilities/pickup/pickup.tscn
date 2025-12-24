@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8d1l00i3ur4x"]
+
+[ext_resource type="Script" uid="uid://6aym04k31vlm" path="res://affectors/abilities/pickup/pickup.gd" id="1_68u8c"]
+
+[node name="PickupItem" type="Node"]
+script = ExtResource("1_68u8c")

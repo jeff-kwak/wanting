@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://3dkh3t611a6s"]
+
+[ext_resource type="Script" uid="uid://tvba0fqm2qa7" path="res://stages/game_play/teleporter.gd" id="1_lvmfr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dup6h"]
+size = Vector2(10, 10)
+
+[node name="Teleporter" type="Area2D"]
+collision_layer = 512
+collision_mask = 17
+script = ExtResource("1_lvmfr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_dup6h")
+debug_color = Color(0.80418944, 0.22936547, 0.8576576, 0.41960785)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

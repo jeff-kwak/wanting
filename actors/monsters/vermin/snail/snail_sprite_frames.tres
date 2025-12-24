@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cxt0kmv6u6up8"]
+
+[ext_resource type="Texture2D" uid="uid://8w7syfluspdy" path="res://assets/0x72/0x72_DungeonTilesetII_v1.7.png" id="1_4l7ie"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hu56"]
+atlas = ExtResource("1_4l7ie")
+region = Rect2(416, 352, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwmo6"]
+atlas = ExtResource("1_4l7ie")
+region = Rect2(432, 352, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llk5d"]
+atlas = ExtResource("1_4l7ie")
+region = Rect2(448, 352, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdgy5"]
+atlas = ExtResource("1_4l7ie")
+region = Rect2(464, 352, 16, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hu56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwmo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llk5d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdgy5")
+}],
+"loop": true,
+"name": &"run",
+"speed": 3.0
+}]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk68j1swkcrr"]
+
+[ext_resource type="Theme" uid="uid://wo8sfv71mifr" path="res://user_interface/ui.tres" id="1_8vgmi"]
+[ext_resource type="Script" uid="uid://bxflun320cn15" path="res://user_interface/level_counter.gd" id="2_aeicj"]
+
+[node name="LevelCounter" type="Label"]
+theme = ExtResource("1_8vgmi")
+text = "Level: 999"
+script = ExtResource("2_aeicj")

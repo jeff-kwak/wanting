@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxsce0j7nusjo"]
+
+[ext_resource type="Script" uid="uid://0qw350aymc60" path="res://stages/game_play/door.gd" id="1_ryret"]
+[ext_resource type="Texture2D" uid="uid://rfvry1l5jxmv" path="res://assets/environment/wooden-door.png" id="3_7mma2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gl2m"]
+atlas = ExtResource("3_7mma2")
+region = Rect2(0, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sib5c"]
+atlas = ExtResource("3_7mma2")
+region = Rect2(64, 0, 64, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f6y1m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gl2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sib5c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qr2ok"]
+size = Vector2(8, 16)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_ryret")
+
+[node name="KeyIcon" type="Sprite2D" parent="."]
+position = Vector2(0, -40)
+
+[node name="Visual" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -24)
+sprite_frames = SubResource("SpriteFrames_f6y1m")
+
+[node name="Doorway" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doorway"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_qr2ok")
+debug_color = Color(0.7633382, 0.43788344, 0.2942203, 0.41960785)
+
+[node name="InDoorPosition" type="Marker2D" parent="."]
+position = Vector2(0, -6)
+
+[node name="ThresholdPosition" type="Marker2D" parent="."]
+position = Vector2(0, 12)

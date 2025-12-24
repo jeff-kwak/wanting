@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=4 uid="uid://bb3vsi1p8tvtm"]
+
+[ext_resource type="TileSet" uid="uid://b80d2mvkrtidr" path="res://stages/game_play/levels/foundation_level_tileset.tres" id="1_il4m4"]
+[ext_resource type="PackedScene" uid="uid://3dkh3t611a6s" path="res://stages/game_play/teleporter.tscn" id="2_qg40w"]
+[ext_resource type="PackedScene" uid="uid://dxsce0j7nusjo" path="res://stages/game_play/door.tscn" id="3_qg40w"]
+[ext_resource type="PackedScene" uid="uid://ce3woxeak28xn" path="res://actors/monsters/vermin/vermin.tscn" id="6_f6y1m"]
+[ext_resource type="Resource" uid="uid://cghto4vptboto" path="res://actors/monsters/vermin/snail/snail_data.tres" id="7_qr2ok"]
+
+[node name="FoundationLevel" type="Node2D"]
+
+[node name="FloorWalls" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAAAAADAAQAAAABAAAAAAADAAQAAAACAAAAAAACAAUAAAADAAAAAAACAAYAAAAEAAAAAAACAAUAAAAFAAAAAAABAAQAAAAGAAAAAAACAAUAAAAHAAAAAAABAAUAAAAIAAAAAAABAAQAAAD//wAAAAABAAUAAAD+/wAAAAADAAQAAAD9/wAAAAADAAQAAAD8/wAAAAACAAQAAAD7/wAAAAACAAYAAAD6/wAAAAACAAQAAAD5/wAAAAADAAUAAAD4/wAAAAABAAQAAAD3/wAAAAACAAQAAAD2/wAAAAACAAUAAAAJAAAAAAADAAQAAAAJAP//AAACAAEAAAAIAP//AAADAAEAAAAHAP//AAACAAEAAAAGAP//AAADAAEAAAAFAP//AAACAAEAAAAEAP//AAADAAEAAAADAP//AAADAAEAAAACAP//AAADAAEAAAABAP//AAACAAEAAAAAAP//AAABAAEAAAD/////AAACAAEAAAD+////AAABAAEAAAD9////AAADAAEAAAD8////AAADAAEAAAD7////AAADAAEAAAD6////AAADAAEAAAD5////AAACAAEAAAD4////AAABAAEAAAD3////AAACAAEAAAD2////AAADAAEAAAAJAP7/AAACAAAAAAAIAP7/AAABAAAAAAAHAP7/AAABAAAAAAAGAP7/AAACAAAAAAAFAP7/AAADAAAAAAAEAP7/AAABAAAAAAADAP7/AAACAAAAAAACAP7/AAADAAAAAAABAP7/AAACAAAAAAAAAP7/AAADAAAAAAD///7/AAACAAAAAAD+//7/AAABAAAAAAD9//7/AAABAAAAAAD8//7/AAACAAAAAAD7//7/AAADAAAAAAD6//7/AAABAAAAAAD5//7/AAACAAAAAAD4//7/AAABAAAAAAD3//7/AAACAAAAAAD2//7/AAADAAAAAAD2/wEAAAAGAAgAAAD3/wEAAAAGAAgAAAD4/wEAAAAGAAgAAAD5/wEAAAAGAAgAAAD6/wEAAAAGAAgAAAD7/wEAAAAGAAgAAAD8/wEAAAAGAAgAAAD9/wEAAAAGAAgAAAD+/wEAAAAGAAgAAAD//wEAAAAGAAgAAAAAAAEAAAAGAAgAAAABAAEAAAAGAAgAAAACAAEAAAAGAAgAAAADAAEAAAAGAAgAAAAEAAEAAAAGAAgAAAAFAAEAAAAGAAgAAAAGAAEAAAAGAAgAAAAHAAEAAAAGAAgAAAAIAAEAAAAGAAgAAAAJAAEAAAAGAAgAAAA=")
+tile_set = ExtResource("1_il4m4")
+
+[node name="LeftTeleporter" parent="." node_paths=PackedStringArray("destination") instance=ExtResource("2_qg40w")]
+position = Vector2(-168, 12)
+destination = NodePath("../RightTeleporter")
+
+[node name="RightTeleporter" parent="." node_paths=PackedStringArray("destination") instance=ExtResource("2_qg40w")]
+position = Vector2(168, 12)
+destination = NodePath("../LeftTeleporter")
+exit_direction = -1.0
+
+[node name="Door" parent="." instance=ExtResource("3_qg40w")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Snail" parent="." instance=ExtResource("6_f6y1m")]
+position = Vector2(0, 12)
+stats = ExtResource("7_qr2ok")

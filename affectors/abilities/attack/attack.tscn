@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c34uwtsts7g0v"]
+
+[ext_resource type="Script" uid="uid://dr1uw13n7gwvb" path="res://affectors/abilities/attack/attack.gd" id="1_pmfc6"]
+
+[node name="Attack" type="Node"]
+script = ExtResource("1_pmfc6")

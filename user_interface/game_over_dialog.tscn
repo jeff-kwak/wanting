@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=3 uid="uid://bstkhxhwyxwwn"]
+
+[ext_resource type="Theme" uid="uid://wo8sfv71mifr" path="res://user_interface/ui.tres" id="1_rh25u"]
+[ext_resource type="Script" uid="uid://cb8h4u2kkdil4" path="res://user_interface/game_over_dialog.gd" id="2_wispg"]
+[ext_resource type="Texture2D" uid="uid://cag33723bn52t" path="res://assets/0x72/dungeonui.v1.png" id="3_iv1jc"]
+[ext_resource type="FontFile" uid="uid://bc8bwjc8vl03k" path="res://assets/fonts/NotJamBlkltr16.ttf" id="4_jvqbc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkbwk"]
+atlas = ExtResource("3_iv1jc")
+region = Rect2(24, 72, 24, 24)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hw2jd"]
+bg_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7m63q"]
+atlas = ExtResource("3_iv1jc")
+region = Rect2(144, 208, 32, 22)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ndvo"]
+texture = SubResource("AtlasTexture_7m63q")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[node name="GameOverDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 152.0
+offset_bottom = 88.0
+theme = ExtResource("1_rh25u")
+script = ExtResource("2_wispg")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -56.0
+offset_right = 104.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_mkbwk")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hw2jd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOverLabelContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(192, 64)
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GameOverLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GameOverLabelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_jvqbc")
+theme_override_font_sizes/font_size = 16
+text = "Death is upon you"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="TryAgainButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Try Again"
+
+[node name="QuitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.06666667, 0.06666667, 0.06666667, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_5ndvo")
+text = "Quit"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TryAgainButton" to="." method="_on_try_again_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

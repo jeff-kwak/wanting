@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://crfxfisbarxla"]
+
+[ext_resource type="Shader" uid="uid://cs2nvfmolyro5" path="res://actors/actor_shader.gdshader" id="1_6ouki"]
+
+[resource]
+shader = ExtResource("1_6ouki")
+shader_parameter/active = false
+shader_parameter/color = Color(0.99215686, 0.96862745, 0.92941177, 1)

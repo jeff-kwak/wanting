@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqeaxtxhsgmb3"]
+
+[ext_resource type="Script" uid="uid://c43f2s0u7ttie" path="res://user_interface/player_hud.gd" id="1_ekda2"]
+[ext_resource type="PackedScene" uid="uid://dk68j1swkcrr" path="res://user_interface/level_counter.tscn" id="1_j8ss7"]
+[ext_resource type="PackedScene" uid="uid://bcoybkly1aib7" path="res://user_interface/health_bar.tscn" id="2_fyhev"]
+[ext_resource type="PackedScene" uid="uid://llqh0hsxsisq" path="res://user_interface/actor_stats_ui.tscn" id="3_fyhev"]
+
+[node name="PlayerHud" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 48.0
+script = ExtResource("1_ekda2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LevelCounter" parent="VBoxContainer" instance=ExtResource("1_j8ss7")]
+layout_mode = 2
+text = "Level: 1000"
+
+[node name="HeartContainer" parent="VBoxContainer" instance=ExtResource("2_fyhev")]
+layout_mode = 2
+
+[node name="ActorStats" parent="VBoxContainer" instance=ExtResource("3_fyhev")]
+unique_name_in_owner = true
+layout_mode = 2
