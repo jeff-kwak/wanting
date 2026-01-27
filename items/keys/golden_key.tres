@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PickupData" format=3 uid="uid://y4aupfjh326p"]
+
+[ext_resource type="Script" uid="uid://52udc6odie46" path="res://items/pickup_data.gd" id="1_1xgh5"]
+[ext_resource type="Texture2D" uid="uid://dr1we0pjc8b6c" path="res://assets/items/items.png" id="2_68cvg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfw8b"]
+atlas = ExtResource("2_68cvg")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_1xgh5")
+pickup_name = "Golden Key"
+kind = 1
+visual_texture = SubResource("AtlasTexture_qfw8b")
+metadata/_custom_type_script = "uid://52udc6odie46"

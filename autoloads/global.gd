@@ -43,3 +43,5 @@ const SIZE_LG: int = int(SIZE_MD * GOLDEN)
 
 const ANIM_RUN: StringName = "run"
 const ANIM_DEATH: StringName = "death"
+
+const ANIM_SHORT_ATTACK: StringName = "short_attack"

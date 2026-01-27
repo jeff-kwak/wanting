@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b6ay7xgem5y01"]
+[gd_scene format=3 uid="uid://b6ay7xgem5y01"]
 
 [ext_resource type="PackedScene" uid="uid://hujbsv530rt3" path="res://stages/game_play/levels/level.tscn" id="1_1lhju"]
 [ext_resource type="PackedScene" uid="uid://5780rpyw63ld" path="res://actors/player/player.tscn" id="1_8vkgn"]
@@ -33,7 +33,7 @@ texture = ExtResource("6_kg3al")
 [sub_resource type="TileSet" id="TileSet_7lfro"]
 sources/0 = SubResource("TileSetAtlasSource_d0j52")
 
-[node name="GamePlay" type="Node2D"]
+[node name="GamePlay" type="Node2D" unique_id=1912242055]
 script = ExtResource("1_irr8f")
 level_scene = ExtResource("1_1lhju")
 door_scene = ExtResource("3_pgcq5")
@@ -41,9 +41,9 @@ vermin_scene = ExtResource("4_7lfro")
 player_scene = ExtResource("1_8vkgn")
 level_data = Array[ExtResource("3_nwoy8")]([ExtResource("2_irr8f")])
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1319360412]
 
-[node name="GameOverDialog" parent="CanvasLayer" instance=ExtResource("8_hw2jd")]
+[node name="GameOverDialog" parent="CanvasLayer" unique_id=1065939715 instance=ExtResource("8_hw2jd")]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 8
@@ -58,39 +58,39 @@ offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerHud" parent="CanvasLayer" instance=ExtResource("9_mkbwk")]
+[node name="PlayerHud" parent="CanvasLayer" unique_id=1040789037 instance=ExtResource("9_mkbwk")]
 unique_name_in_owner = true
 
-[node name="MonsterHud" parent="CanvasLayer" instance=ExtResource("10_7m63q")]
+[node name="MonsterHud" parent="CanvasLayer" unique_id=1490901682 instance=ExtResource("10_7m63q")]
 unique_name_in_owner = true
 
-[node name="Levels" type="Node2D" parent="."]
+[node name="Levels" type="Node2D" parent="." unique_id=77646713]
 position = Vector2(0, -12)
 
-[node name="SideWalls" type="TileMapLayer" parent="."]
+[node name="SideWalls" type="TileMapLayer" parent="." unique_id=807765082]
 z_index = 2
 position = Vector2(0, -512)
 tile_set = SubResource("TileSet_7lfro")
 script = ExtResource("7_d0j52")
 
-[node name="FollowCamera" type="Camera2D" parent="."]
+[node name="FollowCamera" type="Camera2D" parent="." unique_id=1366568580]
 script = ExtResource("7_bryae")
 
-[node name="States" type="Node" parent="."]
+[node name="States" type="Node" parent="." unique_id=1956188927]
 
-[node name="Loading" type="Node" parent="States"]
+[node name="Loading" type="Node" parent="States" unique_id=251419674]
 script = ExtResource("11_8tvfk")
 metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
 
-[node name="Playing" type="Node" parent="States"]
+[node name="Playing" type="Node" parent="States" unique_id=2094185047]
 script = ExtResource("11_8tvfk")
 metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
 
-[node name="Restarting" type="Node" parent="States"]
+[node name="Restarting" type="Node" parent="States" unique_id=2033980307]
 script = ExtResource("11_8tvfk")
 metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
 
-[node name="GameOver" type="Node" parent="States"]
+[node name="GameOver" type="Node" parent="States" unique_id=1157665691]
 script = ExtResource("11_8tvfk")
 metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
 

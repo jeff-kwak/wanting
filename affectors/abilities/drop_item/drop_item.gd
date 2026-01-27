@@ -20,5 +20,6 @@ func _on_activate(context := { }) -> bool:
     print("drop_item: actor %s dropping item %s" % [actor.name, item.name])
     item.start_pickup_cooldown()
     actor.drop_item(item)
+    EventBus.item_dropped.emit(actor, item)
 
     return false # instant effect, not active after application

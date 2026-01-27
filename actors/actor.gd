@@ -27,6 +27,13 @@ var key_slot: PickupItem:
         key_slot = value
 
 
+var weapon_slot: PickupItem:
+    get:
+        return weapon_slot
+    set(value):
+        weapon_slot = value
+
+
 var current_health: int = 0:
     get:
         return current_health
@@ -83,34 +90,23 @@ func add_inventory(item: PickupItem) -> void:
     """
     Adds the specified item to the actor's inventory.
     """
-    print("actor: adding item %s to inventory of actor %s" % [item.pickup_name, self.name])
+    print("actor: adding item %s (%s) to inventory of actor %s" % [item.pickup_name, item.name, self.name])
+    item.reparent.call_deferred(self)
+    item.call_deferred("set_position", Vector2.ZERO)
+    item.hold.call_deferred()
+
     match item.kind:
         PickupData.Kind.KEY:
             key_slot = item
-
-            # when you pickup a key it unlocks the doors immediately
-            var out_door: Door = item.metadata.get(PickupItem.META_DOOR)
-            var in_door: Door = out_door.linked_door
-            out_door.unlock()
-            in_door.unlock()
-            EventBus.door_unlocked.emit(self, out_door)
-            EventBus.door_unlocked.emit(self, in_door)
-        _:
-            pass
-
-
-func consume_item(item: PickupItem) -> void:
-    """
-    Consumes the specified item from the actor's inventory.
-    """
-    print("actor: consuming item %s from inventory of actor %s" % [item.pickup_name, self.name])
-    match item.kind:
-        PickupData.Kind.KEY:
-            if key_slot == item:
-                # leaves the doors in whatever state they are in
-                item.queue_free()
-                EventBus.item_consumed.emit(self, item)
-                key_slot = null
+            _on_add_key_to_inventory()
+        PickupData.Kind.WEAPON:
+            if weapon_slot:
+                activate_affector(Global.AFFECTOR.DROP_ITEM, { DropItemAbility.PARAM_ITEM: weapon_slot })
+            weapon_slot = item
+            data.attack += item.pickup_data.attack
+            data.defense += item.pickup_data.defense # some weapons may change defense
+            EventBus.actor_stats_changed.emit(self)
+            _on_add_weapon_to_inventory()
         _:
             pass
 
@@ -120,20 +116,26 @@ func drop_item(item: PickupItem) -> void:
     Drops the specified item from the actor's inventory into the game world.
     """
     print("actor: dropping item %s from inventory of actor %s" % [item.pickup_name, self.name])
+    var level: Level = get_parent() as Level
+    if not level:
+        push_error("actor: cannot drop item %s, actor %s is not in a level!" % [item.pickup_name, self.name])
+        return
+
+    item.reparent.call_deferred(level)
+    item.call_deferred("set_position", Vector2(position.x, 0))
+    item.drop.call_deferred()
+
     match item.kind:
         PickupData.Kind.KEY:
             if key_slot == item:
-                get_parent().add_child.call_deferred(item)
-                item.position = self.position
                 key_slot = null
+        PickupData.Kind.WEAPON:
+            if weapon_slot == item:
+                weapon_slot = null
 
-                # when you drop a key it locks the doors immediately
-                var out_door: Door = item.metadata.get(PickupItem.META_DOOR)
-                var in_door: Door = out_door.linked_door
-                out_door.lock()
-                in_door.lock()
-                EventBus.door_locked.emit(self, out_door)
-                EventBus.door_locked.emit(self, in_door)
+            data.attack -= item.pickup_data.attack
+            data.defense -= item.pickup_data.defense # some weapons may change defense
+            EventBus.actor_stats_changed.emit(self)
         _:
             push_error("actor: drop_item called with unsupported item kind %s" % PickupData.Kind.keys()[item.kind])
             pass
@@ -151,7 +153,7 @@ func apply_damage(amount: int) -> void:
     """
     Applies damage to the actor, reducing its current health.
     """
-    var affector: Affector = _affectors[Global.AFFECTOR.INVINCIBLE]
+    var affector: Affector = _affectors.get(Global.AFFECTOR.INVINCIBLE)
     if affector and affector.is_active:
         print("actor: %s is invincible and takes no damage!" % self.name)
         return
@@ -236,6 +238,14 @@ func _on_hurt(amount: int) -> void:
 
 func _on_death() -> void:
     EventBus.actor_killed.emit(self) # override in subclasses for more behavior
+
+
+func _on_add_key_to_inventory() -> void:
+    pass # To be overridden in subclasses
+
+
+func _on_add_weapon_to_inventory() -> void:
+    pass # To be overridden in subclasses
 
 
 func _on_body_area_entered(area: Area2D) -> void:

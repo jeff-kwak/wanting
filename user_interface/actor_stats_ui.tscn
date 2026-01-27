@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://llqh0hsxsisq"]
+[gd_scene format=3 uid="uid://llqh0hsxsisq"]
 
 [ext_resource type="Theme" uid="uid://wo8sfv71mifr" path="res://user_interface/ui.tres" id="1_crgr2"]
 [ext_resource type="Script" uid="uid://bivk417x3lavk" path="res://user_interface/actor_stats.gd" id="2_5s0wu"]
 
-[node name="ActorStats" type="RichTextLabel"]
+[node name="ActorStats" type="RichTextLabel" unique_id=1210333679]
 custom_minimum_size = Vector2(64, 16)
 offset_right = 64.0
 offset_bottom = 16.0

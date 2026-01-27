@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://5780rpyw63ld"]
+[gd_scene format=3 uid="uid://5780rpyw63ld"]
 
 [ext_resource type="Script" uid="uid://bn33adcbayymc" path="res://actors/player/player.gd" id="1_nvxhs"]
 [ext_resource type="PackedScene" uid="uid://ce60s1wpy3qha" path="res://affectors/abilities/move/move.tscn" id="2_ax26v"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dccr34nb8ugxi" path="res://affectors/status_effects/invincible/invincible.tscn" id="10_7aotg"]
 [ext_resource type="Script" uid="uid://0ao5t7kvwjt3" path="res://affectors/status_effects/invincible/invincible.gd" id="11_k67x5"]
 [ext_resource type="Material" uid="uid://crfxfisbarxla" path="res://actors/actor_shader.tres" id="13_k67x5"]
+[ext_resource type="Script" uid="uid://buv1xskuf3ydv" path="res://actors/player/battle_animation.gd" id="15_12xki"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hiosj"]
 atlas = ExtResource("3_ax26v")
@@ -73,57 +74,121 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ax26v"]
 size = Vector2(10, 18)
 
-[node name="Player" type="Node2D" groups=["Player"]]
+[sub_resource type="Animation" id="Animation_k67x5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponSlot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponSlot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_12xki"]
+resource_name = "attack"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponSlot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03148404, 0.07992102, 0.09929582),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(7, -10), Vector2(9, -10), Vector2(9, -10), Vector2(7, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponSlot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.03148404, 0.07992102, 0.09929582),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.5707964, 1.5707964, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rt46e"]
+_data = {
+&"RESET": SubResource("Animation_k67x5"),
+&"short_attack": SubResource("Animation_12xki")
+}
+
+[node name="Player" type="Node2D" unique_id=1929894259 groups=["Player"]]
 z_index = 2
 script = ExtResource("1_nvxhs")
 flash_times = 5
 data = ExtResource("2_lsqbn")
 metadata/_edit_vertical_guides_ = [0.0]
 
-[node name="Abilities" type="Node" parent="."]
+[node name="Abilities" type="Node" parent="." unique_id=1229205583]
 
-[node name="Move" parent="Abilities" instance=ExtResource("2_ax26v")]
+[node name="Move" parent="Abilities" unique_id=756328146 instance=ExtResource("2_ax26v")]
 
-[node name="ChangeDirection" parent="Abilities" instance=ExtResource("4_15y17")]
+[node name="ChangeDirection" parent="Abilities" unique_id=65661627 instance=ExtResource("4_15y17")]
 
-[node name="PickupItem" parent="Abilities" instance=ExtResource("5_bop6h")]
-cool_down = 0.3
+[node name="PickupItem" parent="Abilities" unique_id=1583102650 instance=ExtResource("5_bop6h")]
 
-[node name="DropItem" parent="Abilities" instance=ExtResource("6_ssdk0")]
+[node name="DropItem" parent="Abilities" unique_id=1583065237 instance=ExtResource("6_ssdk0")]
 
-[node name="ExitLevel" parent="Abilities" instance=ExtResource("7_388e2")]
+[node name="ExitLevel" parent="Abilities" unique_id=1566291396 instance=ExtResource("7_388e2")]
 cool_down = 0.0
 is_enabled = true
 
-[node name="Attack" parent="Abilities" instance=ExtResource("8_hiosj")]
+[node name="Attack" parent="Abilities" unique_id=1182018446 instance=ExtResource("8_hiosj")]
 
-[node name="Effects" type="Node" parent="."]
+[node name="Effects" type="Node" parent="." unique_id=1900881597]
 
-[node name="Hurt" parent="Effects" instance=ExtResource("7_lsln6")]
+[node name="Hurt" parent="Effects" unique_id=1726980123 instance=ExtResource("7_lsln6")]
 cool_down = 0.5
 
-[node name="Invincible" parent="Effects" instance=ExtResource("10_7aotg")]
+[node name="Invincible" parent="Effects" unique_id=53342448 instance=ExtResource("10_7aotg")]
 script = ExtResource("11_k67x5")
 
-[node name="States" type="Node" parent="."]
+[node name="States" type="Node" parent="." unique_id=2112585697]
 
-[node name="Loading" type="Node" parent="States"]
+[node name="Loading" type="Node" parent="States" unique_id=1776543115]
 script = ExtResource("6_bop6h")
 metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
 
-[node name="Moving" type="Node" parent="States"]
+[node name="Moving" type="Node" parent="States" unique_id=598246202]
 script = ExtResource("6_bop6h")
 metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
 
-[node name="ExitingLevel" type="Node" parent="States"]
+[node name="Battle" type="Node" parent="States" unique_id=369537196]
 script = ExtResource("6_bop6h")
 metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
 
-[node name="Dead" type="Node" parent="States"]
+[node name="ExitingLevel" type="Node" parent="States" unique_id=741964605]
 script = ExtResource("6_bop6h")
 metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
 
-[node name="Visual" type="AnimatedSprite2D" parent="."]
+[node name="Dead" type="Node" parent="States" unique_id=1048190858]
+script = ExtResource("6_bop6h")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[node name="Visual" type="AnimatedSprite2D" parent="." unique_id=1350498179]
 material = ExtResource("13_k67x5")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_ilk7j")
@@ -132,13 +197,23 @@ autoplay = "run"
 frame = 1
 frame_progress = 1.0
 
-[node name="Body" type="Area2D" parent="."]
+[node name="Body" type="Area2D" parent="." unique_id=877185136]
 position = Vector2(0, -8)
 collision_mask = 5393
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body" unique_id=215520204]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_ax26v")
+
+[node name="KeySlot" type="Marker2D" parent="." unique_id=1321751309]
+position = Vector2(0, -23)
+
+[node name="WeaponSlot" type="Marker2D" parent="." unique_id=669690326]
+position = Vector2(7, -10)
+
+[node name="BattleAnimation" type="AnimationPlayer" parent="." unique_id=1420053689]
+libraries/ = SubResource("AnimationLibrary_rt46e")
+script = ExtResource("15_12xki")
 
 [connection signal="area_entered" from="Body" to="." method="_on_body_area_entered"]
 [connection signal="area_exited" from="Body" to="." method="_on_body_area_exited"]

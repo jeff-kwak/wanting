@@ -43,9 +43,6 @@ func activate(context := { }) -> void:
     if can_activate():
         @warning_ignore("redundant_await") # some abilities are async
         is_active = await _on_activate(context)
-        if is_active:
-            _cooldown_timer = cool_down
-
         EventBus.affector_activated.emit(actor, self)
 
 
@@ -75,14 +72,18 @@ func _process(delta: float) -> void:
     if _cooldown_timer > 0.0:
         _cooldown_timer -= delta
         EventBus.affector_cooldown_progress.emit(actor, self, _cooldown_timer, cool_down)
-        if _cooldown_timer <= 0.0:
-            _cooldown_timer = 0.0
-            _on_cooldown_complete()
-            EventBus.affector_cooldown_completed.emit(actor, self)
-            is_active = false
+        _check_cooldown()
 
     if is_active:
         _on_update(delta)
+
+
+func _check_cooldown() -> void:
+    if _cooldown_timer <= 0.0:
+        _cooldown_timer = 0.0
+        _on_cooldown_complete()
+        EventBus.affector_cooldown_completed.emit(actor, self)
+        is_active = false
 
 
 func _on_cooldown_complete() -> void:

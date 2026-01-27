@@ -43,7 +43,11 @@ var pickup_name: String:
 var metadata: Dictionary = { }
 
 
+var _floating_tween: Tween = null
+
+
 @onready var _visual: Sprite2D = $Visual
+@onready var _touch_box: Area2D = $TouchBox
 
 
 var _cooldown_timer: float = 0.0
@@ -54,10 +58,27 @@ func start_pickup_cooldown() -> void:
     _cooldown_timer = cool_down
 
 
-func _ready() -> void:
-    pickup_data = pickup_data
+func hold() -> void:
+    if _floating_tween:
+        _floating_tween.stop()
+        _floating_tween = null
+
+    if _touch_box:
+        _touch_box.call_deferred("set_monitoring", false)
+        _touch_box.call_deferred("set_monitorable", false)
+
+
+func drop() -> void:
     _animate_vertical_movement()
 
+    if _touch_box:
+        _touch_box.call_deferred("set_monitoring", true)
+        _touch_box.call_deferred("set_monitorable", true)
+
+
+func _ready() -> void:
+    pickup_data = pickup_data
+    drop()
 
 
 func _process(delta: float) -> void:
@@ -70,9 +91,9 @@ func _process(delta: float) -> void:
 func _animate_vertical_movement():
     await get_tree().create_timer(randf() * 0.5).timeout
     var start_y = position.y
-    var tween = create_tween()
-    tween.set_loops()  # Loop infinitely
-    tween.set_ease(Tween.EASE_IN_OUT)
-    tween.set_trans(Tween.TRANS_SINE)
-    tween.tween_property(self, "position:y", start_y - animation_amplitude, animation_period * 0.5)
-    tween.tween_property(self, "position:y", start_y + animation_amplitude, animation_period * 0.5)
+    _floating_tween = create_tween()
+    _floating_tween.set_loops()  # Loop infinitely
+    _floating_tween.set_ease(Tween.EASE_IN_OUT)
+    _floating_tween.set_trans(Tween.TRANS_SINE)
+    _floating_tween.tween_property(self, "position:y", start_y - animation_amplitude, animation_period * 0.5)
+    _floating_tween.tween_property(self, "position:y", start_y + animation_amplitude, animation_period * 0.5)

@@ -1,20 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://ck8fhoqr3xjdb"]
+[gd_scene format=3 uid="uid://ck8fhoqr3xjdb"]
 
 [ext_resource type="Script" uid="uid://dckb6rl18l0v6" path="res://items/pickup_item.gd" id="1_icyau"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_icyau"]
 size = Vector2(10, 10)
 
-[node name="PickupItem" type="Node2D"]
+[node name="PickupItem" type="Node2D" unique_id=1670255133]
+z_index = 3
+position = Vector2(0, 4.0378246)
 script = ExtResource("1_icyau")
-animation_amplitude = null
-animation_period = null
 
-[node name="Visual" type="Sprite2D" parent="."]
+[node name="Visual" type="Sprite2D" parent="." unique_id=50714310]
 
-[node name="PickupItem" type="Area2D" parent="."]
+[node name="TouchBox" type="Area2D" parent="." unique_id=1860752527]
 collision_layer = 4096
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupItem"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TouchBox" unique_id=1265407968]
 shape = SubResource("RectangleShape2D_icyau")
 debug_color = Color(0.2117734, 0.6308197, 0.32086635, 0.41960785)

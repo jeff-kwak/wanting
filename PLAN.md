@@ -1,49 +1,21 @@
 # Current
-- Refactoring abilitities and status
-    - [x] recreate ability system
-    - [x] recreate actor system
-    - [x] recreate brain system
-    - [x] add a stats system
-    - [x] add bumpers
-    - [x] add change direction ability
-    - [x] add teleporters
-    - [x] add change direction in player brain
-    - [x] add base level spawning with camera (monster table per level)
-    - [x] add doors
-    - [x] add exit door ability
-    - [x] infinite spawning and camera
-    - [x] add side wall spawning
-    - [x] spawn monster
-    - [x] spawn items based on table
-    - [x] attack ability and hurt effect
-    - [x] game over
-    - [x] prevent try again going up too many levels
-    - [x] bug: camera not panning up
-    - [x] health UI
-    - [x] invincibilty frames after hurt
-    - [x] hit visual effect
-    - [x] add player ui
-    - [x] bug: change direction in door way teleports in front of level
-    - [ ] add monster ui
-        - built the actor_stats ui widget
-        - added it for the player
-        - add monster hud
-        - todo: monster hud looks terrible in game.
-
-# Next Goal
 - Pickup weapon
-    - carry item
-    - battle animation
-    - drop weapon of same type
-    - player ui for attack and defense
+    - todo: monster death
 - Pickup shield
 - Second level monster
 
+# Next Goal
+
 # Future
-- Show where a hurt happens
-- Coin and treasure pickups
-- Smart respawn so player doesn't die
+- Coin and treasure pickups (game has to be about the loot)
+- Smart respawn so player doesn't die when respawning
 - Music and sound effects
+- Dont spawn pickups on top of each other
+- Monster loot drop
+- PE: Show where a hurt happens
+- PE: Doors open and shut
+- PE: Monster Death
+- Some sort of XP level per character
 - Character selection and loadout (vampire surviror-ish)
 - Ranged weapons
 - Sewer biome
@@ -53,6 +25,10 @@
 - Falling obstacles
 - Traps
 - Encrypted releases
+- Social sharing
+- bug: Player zooms from one level to the other (rare). The tween animation to
+  exit the door starts before the player is in the y-position of the next level
+  somehow.
 
 # Credits
 https://not-jam.itch.io/not-jam-font-pack

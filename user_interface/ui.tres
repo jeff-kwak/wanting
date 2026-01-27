@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://wo8sfv71mifr"]
+[gd_resource type="Theme" format=3 uid="uid://wo8sfv71mifr"]
 
 [ext_resource type="Texture2D" uid="uid://cag33723bn52t" path="res://assets/0x72/dungeonui.v1.png" id="1_atvqc"]
 [ext_resource type="FontFile" uid="uid://dspl0jebnnvvj" path="res://assets/fonts/NotJamOldStyle11.ttf" id="1_tj8hd"]

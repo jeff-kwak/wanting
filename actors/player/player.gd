@@ -9,6 +9,7 @@ A local player-controlled character.
 enum State {
     LOADING,
     MOVING,
+    BATTLE,
     EXITING_LEVEL,
     DEAD,
 }
@@ -16,6 +17,8 @@ enum State {
 enum Trigger {
     LEVEL_EXITED,
     LEVEL_ENTERED,
+    BATTLE_STARTED,
+    BATTLE_ENDED,
     DIED,
 }
 
@@ -24,6 +27,9 @@ enum Trigger {
 
 
 @onready var _visual: AnimatedSprite2D = $Visual
+@onready var _key_slot_marker: Marker2D = $KeySlot
+@onready var _weapon_slot_marker: Marker2D = $WeaponSlot
+@onready var _battle_animation: AnimationPlayer = $BattleAnimation
 
 
 var _fsm: FiniteStateMachine = FiniteStateMachine.new(self)
@@ -44,6 +50,13 @@ func _ready() -> void:
         .on_enter(_enter_moving) \
         .on_exit(_exit_moving) \
         .permit(Trigger.LEVEL_EXITED, State.EXITING_LEVEL) \
+        .permit(Trigger.BATTLE_STARTED, State.BATTLE) \
+        .permit(Trigger.DIED, State.DEAD)
+
+
+    _fsm.setup(State.BATTLE).bind($States/Battle) \
+        .on_enter(_enter_battle) \
+        .permit(Trigger.BATTLE_ENDED, State.MOVING) \
         .permit(Trigger.DIED, State.DEAD)
 
     _fsm.setup(State.EXITING_LEVEL).bind($States/ExitingLevel) \
@@ -68,7 +81,8 @@ func _on_pickup_item_enter(item: PickupItem) -> void:
     print("player: pickup contact with item %s" % item.pickup_name)
     match item.kind:
         PickupData.Kind.KEY:
-
+            activate_affector(Global.AFFECTOR.PICKUP_ITEM, { PickupAbility.PARAM_ITEM: item })
+        PickupData.Kind.WEAPON:
             activate_affector(Global.AFFECTOR.PICKUP_ITEM, { PickupAbility.PARAM_ITEM: item })
         _:
             push_warning("player: unhandled pickup item kind %s" % [str(item.kind)])
@@ -82,6 +96,7 @@ func _on_door_enter(door: Door) -> void:
 
 func _on_monster_enter(_monster: Actor) -> void:
     print("player: contacted by monster %s" % _monster.name)
+    _fsm.send(Trigger.BATTLE_STARTED)
     activate_affector(Global.AFFECTOR.ATTACK, { AttackAbility.PARAM_TARGET: _monster })
 
 
@@ -151,3 +166,20 @@ func _enter_death() -> void:
     _visual.play(Global.ANIM_DEATH)
     await _visual.animation_finished
     EventBus.actor_killed.emit(self)
+
+
+func _on_add_key_to_inventory() -> void:
+    key_slot.call_deferred("set_position", _key_slot_marker.position)
+
+
+func _on_add_weapon_to_inventory() -> void:
+    weapon_slot.reparent.call_deferred(_weapon_slot_marker)
+    weapon_slot.call_deferred("set_position", Vector2.ZERO)
+
+
+func _enter_battle() -> void:
+    if weapon_slot:
+        _battle_animation.attack(weapon_slot)
+        await _battle_animation.finished
+
+    _fsm.send(Trigger.BATTLE_ENDED)

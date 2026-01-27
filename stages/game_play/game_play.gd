@@ -46,7 +46,7 @@ const MONSTER_SPAWN_Y_DISTANCE: int = 12
 var _level_buffer : Array[Level] = []
 var _last_level_index : int = -1
 var _pickup_scene: PackedScene = preload("res://items/pickup_item.tscn")
-var _key_data: PickupData = preload("res://items/golden_key.tres")
+var _key_data: PickupData = preload("res://items/keys/golden_key.tres")
 var _player: Player
 var _player_level: int = 0
 
@@ -57,6 +57,8 @@ var _fsm: FiniteStateMachine = FiniteStateMachine.new(self)
 func _ready() -> void:
     EventBus.level_entered.connect(_on_level_entered)
     EventBus.actor_killed.connect(_on_actor_killed)
+    EventBus.item_picked_up.connect(_on_item_picked_up)
+    EventBus.item_dropped.connect(_on_item_dropped)
 
     _fsm.setup(State.LOADING).bind($States/Loading) \
         .on_enter(_enter_loading) \
@@ -127,6 +129,7 @@ func _spawn_next_level() -> void:
     _spawn_level(new_pos, level_data[0]) # TODO: lookup table
     _spawn_doors()
     _spawn_monsters(level_data[0]) # TODO: lookup table based on depth
+    _spawn_weapons(level_data[0]) # TODO: lookup table based on depth
 
 
 func _spawn_level(pos: Vector2, data: LevelData) -> void:
@@ -136,6 +139,7 @@ func _spawn_level(pos: Vector2, data: LevelData) -> void:
     level_instance.position = pos
     level_instance.level_number = _last_level_index
     level_instance.level_data = data
+    level_instance.name = "Level_%d" % (_last_level_index + 1)
     _level_container.add_child(level_instance)
 
     if _level_buffer[_last_level_index % LEVELS_TO_BUFFER] != null:
@@ -161,6 +165,7 @@ func _spawn_doors() -> void:
     previous_level.contents[door_position] = Level.Content.DOOR
     exit_door.position = Vector2((-Global.TILE_SIZE * previous_level.level_width_half) + (door_position * Global.TILE_SIZE),0)
     exit_door.is_exit = true
+    exit_door.name = "Out_%d" % (previous + 1)
     previous_level.add_child(exit_door)
 
     # spawn a key for the exit door
@@ -168,6 +173,7 @@ func _spawn_doors() -> void:
     key_item.pickup_data = _key_data
     key_item.position = _in_level_position(previous_level)
     key_item.metadata[PickupItem.META_DOOR] = exit_door
+    key_item.name = "Key_%d" % (previous + 1)
     previous_level.add_child(key_item)
     exit_door.key = key_item
 
@@ -178,6 +184,7 @@ func _spawn_doors() -> void:
     current_level.contents[door_position] = Level.Content.DOOR
     entrance_door.position = Vector2((-Global.TILE_SIZE * current_level.level_width_half) + (door_position * Global.TILE_SIZE),0)
     entrance_door.is_exit = false
+    entrance_door.name = "In_%d" % (current + 1)
     current_level.add_child(entrance_door)
 
     # link the doors
@@ -222,7 +229,9 @@ func _on_level_entered(actor: Actor, level: Level) -> void:
         return
 
     _player_level = level.level_number
-    _monster_hud.monster = level.monster
+
+    if level.monster:
+        _monster_hud.monster = level.monster
 
     _manage_level_buffer()
 
@@ -248,13 +257,29 @@ func _spawn_monsters(data: LevelData) -> void:
     level.add_child(monster_instance)
     level.monster = monster_instance
 
+func _spawn_weapons(data: LevelData) -> void:
+    # Decide whether to spawn a weapon based on chance
+    if randf() > data.chance_for_weapon:
+        return # No weapon this time
+
+    var weapon_index = Toolbox.pick_weighted_index(data.weapon_weight)
+    var weapon_data: PickupData = data.weapons[weapon_index]
+    var level: Level = _level_buffer[_to_ind(_last_level_index)]
+
+    var weapon_instance: PickupItem = _pickup_scene.instantiate()
+    weapon_instance.position = _in_level_position(_level_buffer[_to_ind(_last_level_index)])
+    weapon_instance.pickup_data = weapon_data
+    weapon_instance.name = "%s_%d" % [weapon_data.pickup_name, _last_level_index + 1]
+    level.add_child(weapon_instance)
+
 
 func _on_actor_killed(_actor: Actor) -> void:
-    if _actor != _player:
+    if _actor == _player:
+        _player.queue_free()
+        _fsm.send(Trigger.PLAYER_DIED)
         return
 
-    _player.queue_free()
-    _fsm.send(Trigger.PLAYER_DIED)
+    _actor.queue_free()
 
 
 func _on_game_over_dialog_quit_button_pressed() -> void:
@@ -279,3 +304,39 @@ func _manage_level_buffer() -> void:
     # overwriting the ring buffer.
     while _last_level_index - _player_level < MIN_LEVELS_AHEAD:
         _spawn_next_level()
+
+
+func _on_item_picked_up(actor: Actor, item: PickupItem) -> void:
+    print("game_play: item %s picked up by actor %s" % [item.name, actor.name])
+
+    match item.kind:
+        PickupData.Kind.KEY:
+            # when you pickup a key it unlocks the doors immediately
+            var out_door: Door = item.metadata.get(PickupItem.META_DOOR)
+            var in_door: Door = out_door.linked_door
+            out_door.unlock()
+            in_door.unlock()
+            EventBus.door_unlocked.emit(out_door)
+            EventBus.door_unlocked.emit(in_door)
+        PickupData.Kind.WEAPON:
+            pass
+        _:
+            push_warning("game_play: unhandled item picked up kind %s" % [str(item.kind)])
+
+
+func _on_item_dropped(actor: Actor, item: PickupItem) -> void:
+    print("game_play: item %s dropped by actor %s" % [item.name, actor.name])
+    match item.kind:
+        PickupData.Kind.KEY:
+            # when you drop a key it locks the doors immediately
+            var out_door: Door = item.metadata.get(PickupItem.META_DOOR)
+            var in_door: Door = out_door.linked_door
+            out_door.lock()
+            in_door.lock()
+            EventBus.door_locked.emit(out_door)
+            EventBus.door_locked.emit(in_door)
+        PickupData.Kind.WEAPON:
+            pass
+        _:
+            push_warning("game_play: unhandled item dropped kind %s" % [str(item.kind)])
+    pass

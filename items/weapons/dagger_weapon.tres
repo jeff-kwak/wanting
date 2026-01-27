@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PickupData" format=3 uid="uid://b3ld2p7qso31b"]
+
+[ext_resource type="Script" uid="uid://52udc6odie46" path="res://items/pickup_data.gd" id="1_hfqpe"]
+[ext_resource type="Texture2D" uid="uid://ospvn3uiasjh" path="res://assets/0x72/0x72_atlas.tres" id="2_6gxf6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02ku4"]
+atlas = ExtResource("2_6gxf6")
+region = Rect2(288, 8, 16, 16)
+
+[resource]
+script = ExtResource("1_hfqpe")
+pickup_name = "Dagger"
+kind = 2
+visual_texture = SubResource("AtlasTexture_02ku4")
+attack = 2
+attack_animation = "short_attack"
+metadata/_custom_type_script = "uid://52udc6odie46"
