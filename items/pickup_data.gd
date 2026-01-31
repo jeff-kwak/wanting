@@ -7,6 +7,7 @@ enum Kind
     NONE,
     KEY,
     WEAPON,
+    SHIELD,
 }
 
 @export var pickup_name: String = "Unnamed Item"

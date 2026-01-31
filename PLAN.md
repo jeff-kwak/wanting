@@ -1,8 +1,8 @@
 # Current
-- Pickup weapon
-    - todo: monster death
-- Pickup shield
-- Second level monster
+- [x] Pickup weapon
+- [x] Pickup shield
+- [ ] Second level monster
+- [ ] Second level sword
 
 # Next Goal
 

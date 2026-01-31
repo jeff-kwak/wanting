@@ -14,7 +14,9 @@ extends Resource
 @export_range(0.0, 1.0, 0.01)
 var chance_for_monster: float = 0.1
 @export_range(0.0, 1.0, 0.01)
-var chance_for_weapon: float = 0.05
+var chance_for_weapon: float = 0.1
+@export_range(0.0, 1.0, 0.01)
+var chance_for_shield: float = 0.1
 
 @export_category("Monster Table")
 @export var monster_weight: Array[float] = []
@@ -23,3 +25,7 @@ var chance_for_weapon: float = 0.05
 @export_category("Weapons")
 @export var weapon_weight: Array[float] = []
 @export var weapons: Array[PickupData] = []
+
+@export_category("Shields")
+@export var shield_weight: Array[float] = []
+@export var shields: Array[PickupData] = []

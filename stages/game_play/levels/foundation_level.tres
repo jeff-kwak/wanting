@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://cghto4vptboto" path="res://actors/monsters/vermin/snail/snail_data.tres" id="2_iu0tp"]
 [ext_resource type="TileSet" uid="uid://b80d2mvkrtidr" path="res://stages/game_play/levels/foundation_level_tileset.tres" id="2_smy6w"]
 [ext_resource type="Script" uid="uid://52udc6odie46" path="res://items/pickup_data.gd" id="5_dbinq"]
+[ext_resource type="Resource" uid="uid://yeinnq3q5qr7" path="res://items/shields/basic_shield.tres" id="5_j0fn3"]
 [ext_resource type="Resource" uid="uid://b3ld2p7qso31b" path="res://items/weapons/dagger_weapon.tres" id="6_kmlcm"]
 
 [resource]
@@ -14,10 +15,13 @@ wall_tile_coords = Array[Vector3i]([Vector3i(0, 1, 1), Vector3i(0, 2, 1), Vector
 floor_tile_coords = Array[Vector3i]([Vector3i(0, 1, 4), Vector3i(0, 2, 4), Vector3i(0, 3, 4), Vector3i(0, 1, 5), Vector3i(0, 2, 5), Vector3i(0, 3, 5), Vector3i(0, 1, 6), Vector3i(0, 2, 6)])
 base_tile_coords = Array[Vector3i]([Vector3i(0, 6, 8)])
 wall_top_tile_coords = Array[Vector3i]([Vector3i(0, 1, 0), Vector3i(0, 2, 0), Vector3i(0, 3, 0)])
-chance_for_monster = 1.0
-chance_for_weapon = 1.0
+chance_for_monster = 0.62
+chance_for_weapon = 0.62
+chance_for_shield = 1.0
 monster_weight = Array[float]([1.0])
 monsters = Array[ExtResource("1_busfa")]([ExtResource("2_iu0tp")])
 weapon_weight = Array[float]([1.0])
 weapons = Array[ExtResource("5_dbinq")]([ExtResource("6_kmlcm")])
+shield_weight = Array[float]([1.0])
+shields = Array[ExtResource("5_dbinq")]([ExtResource("5_j0fn3")])
 metadata/_custom_type_script = "uid://bq1af7lgj3cre"

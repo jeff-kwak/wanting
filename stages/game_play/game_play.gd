@@ -130,6 +130,7 @@ func _spawn_next_level() -> void:
     _spawn_doors()
     _spawn_monsters(level_data[0]) # TODO: lookup table based on depth
     _spawn_weapons(level_data[0]) # TODO: lookup table based on depth
+    _spawn_shields(level_data[0]) # TODO: lookup table based on depth
 
 
 func _spawn_level(pos: Vector2, data: LevelData) -> void:
@@ -271,6 +272,21 @@ func _spawn_weapons(data: LevelData) -> void:
     weapon_instance.pickup_data = weapon_data
     weapon_instance.name = "%s_%d" % [weapon_data.pickup_name, _last_level_index + 1]
     level.add_child(weapon_instance)
+
+
+func _spawn_shields(data: LevelData) -> void:
+    if randf() > data.chance_for_shield:
+        return # No shield this time
+
+    var shield_index = Toolbox.pick_weighted_index(data.shield_weight)
+    var shield_data: PickupData = data.shields[shield_index]
+    var level: Level = _level_buffer[_to_ind(_last_level_index)]
+
+    var shield_instance: PickupItem = _pickup_scene.instantiate()
+    shield_instance.position = _in_level_position(_level_buffer[_to_ind(_last_level_index)])
+    shield_instance.pickup_data = shield_data
+    shield_instance.name = "%s_%d" % [shield_data.pickup_name, _last_level_index + 1]
+    level.add_child(shield_instance)
 
 
 func _on_actor_killed(_actor: Actor) -> void:

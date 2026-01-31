@@ -29,6 +29,7 @@ enum Trigger {
 @onready var _visual: AnimatedSprite2D = $Visual
 @onready var _key_slot_marker: Marker2D = $KeySlot
 @onready var _weapon_slot_marker: Marker2D = $WeaponSlot
+@onready var _shield_slot_marker: Marker2D = $ShieldSlot
 @onready var _battle_animation: AnimationPlayer = $BattleAnimation
 
 
@@ -83,6 +84,8 @@ func _on_pickup_item_enter(item: PickupItem) -> void:
         PickupData.Kind.KEY:
             activate_affector(Global.AFFECTOR.PICKUP_ITEM, { PickupAbility.PARAM_ITEM: item })
         PickupData.Kind.WEAPON:
+            activate_affector(Global.AFFECTOR.PICKUP_ITEM, { PickupAbility.PARAM_ITEM: item })
+        PickupData.Kind.SHIELD:
             activate_affector(Global.AFFECTOR.PICKUP_ITEM, { PickupAbility.PARAM_ITEM: item })
         _:
             push_warning("player: unhandled pickup item kind %s" % [str(item.kind)])
@@ -175,6 +178,11 @@ func _on_add_key_to_inventory() -> void:
 func _on_add_weapon_to_inventory() -> void:
     weapon_slot.reparent.call_deferred(_weapon_slot_marker)
     weapon_slot.call_deferred("set_position", Vector2.ZERO)
+
+
+func _on_add_shield_to_inventory() -> void:
+    shield_slot.reparent.call_deferred(_shield_slot_marker)
+    shield_slot.call_deferred("set_position", Vector2.ZERO)
 
 
 func _enter_battle() -> void:

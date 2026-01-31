@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PickupData" format=3 uid="uid://yeinnq3q5qr7"]
+
+[ext_resource type="Script" uid="uid://52udc6odie46" path="res://items/pickup_data.gd" id="1_m353b"]
+[ext_resource type="Texture2D" uid="uid://dr1we0pjc8b6c" path="res://assets/items/items.png" id="2_kmgf8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tc4eo"]
+atlas = ExtResource("2_kmgf8")
+region = Rect2(0, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_m353b")
+pickup_name = "Basic Shield"
+kind = 3
+visual_texture = SubResource("AtlasTexture_tc4eo")
+defense = 1
+metadata/_custom_type_script = "uid://52udc6odie46"

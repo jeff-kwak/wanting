@@ -211,6 +211,9 @@ position = Vector2(0, -23)
 [node name="WeaponSlot" type="Marker2D" parent="." unique_id=669690326]
 position = Vector2(7, -10)
 
+[node name="ShieldSlot" type="Marker2D" parent="." unique_id=1969863687]
+position = Vector2(-7, -7)
+
 [node name="BattleAnimation" type="AnimationPlayer" parent="." unique_id=1420053689]
 libraries/ = SubResource("AnimationLibrary_rt46e")
 script = ExtResource("15_12xki")

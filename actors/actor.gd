@@ -34,6 +34,13 @@ var weapon_slot: PickupItem:
         weapon_slot = value
 
 
+var shield_slot: PickupItem:
+    get:
+        return shield_slot
+    set(value):
+        shield_slot = value
+
+
 var current_health: int = 0:
     get:
         return current_health
@@ -107,6 +114,14 @@ func add_inventory(item: PickupItem) -> void:
             data.defense += item.pickup_data.defense # some weapons may change defense
             EventBus.actor_stats_changed.emit(self)
             _on_add_weapon_to_inventory()
+        PickupData.Kind.SHIELD:
+            if shield_slot:
+                activate_affector(Global.AFFECTOR.DROP_ITEM, { DropItemAbility.PARAM_ITEM: shield_slot })
+            shield_slot = item
+            data.attack += item.pickup_data.attack # some shields may change attack
+            data.defense += item.pickup_data.defense
+            EventBus.actor_stats_changed.emit(self)
+            _on_add_shield_to_inventory()
         _:
             pass
 
@@ -129,6 +144,7 @@ func drop_item(item: PickupItem) -> void:
         PickupData.Kind.KEY:
             if key_slot == item:
                 key_slot = null
+
         PickupData.Kind.WEAPON:
             if weapon_slot == item:
                 weapon_slot = null
@@ -136,6 +152,15 @@ func drop_item(item: PickupItem) -> void:
             data.attack -= item.pickup_data.attack
             data.defense -= item.pickup_data.defense # some weapons may change defense
             EventBus.actor_stats_changed.emit(self)
+
+        PickupData.Kind.SHIELD:
+            if shield_slot == item:
+                shield_slot = null
+
+            data.attack -= item.pickup_data.attack # some shields may change attack
+            data.defense -= item.pickup_data.defense
+            EventBus.actor_stats_changed.emit(self)
+
         _:
             push_error("actor: drop_item called with unsupported item kind %s" % PickupData.Kind.keys()[item.kind])
             pass
@@ -245,6 +270,10 @@ func _on_add_key_to_inventory() -> void:
 
 
 func _on_add_weapon_to_inventory() -> void:
+    pass # To be overridden in subclasses
+
+
+func _on_add_shield_to_inventory() -> void:
     pass # To be overridden in subclasses
 
 
