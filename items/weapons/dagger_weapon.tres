@@ -12,6 +12,6 @@ script = ExtResource("1_hfqpe")
 pickup_name = "Dagger"
 kind = 2
 visual_texture = SubResource("AtlasTexture_02ku4")
-attack = 2
+attack = 1
 attack_animation = "short_attack"
 metadata/_custom_type_script = "uid://52udc6odie46"

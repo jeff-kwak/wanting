@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://5o6ylnflr4fq"]
+
+[ext_resource type="Script" uid="uid://bsgmyk2curetq" path="res://actors/actor_data.gd" id="1_mvmcq"]
+[ext_resource type="SpriteFrames" uid="uid://c7rjqxcab3753" path="res://actors/monsters/vermin/rat/rat_sprite_frames.tres" id="2_qha66"]
+
+[resource]
+script = ExtResource("1_mvmcq")
+actor_name = "Rat"
+description = "Dirty little rat"
+attack = 1
+speed = 100.0
+sprite_frames = ExtResource("2_qha66")
+metadata/_custom_type_script = "uid://bsgmyk2curetq"

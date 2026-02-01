@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c7rjqxcab3753"]
+
+[ext_resource type="Texture2D" uid="uid://budcjyqn20s3" path="res://assets/actors/vermin.png" id="1_6tnxb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1568q"]
+atlas = ExtResource("1_6tnxb")
+region = Rect2(64, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s7xj"]
+atlas = ExtResource("1_6tnxb")
+region = Rect2(80, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ro1w"]
+atlas = ExtResource("1_6tnxb")
+region = Rect2(96, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqakk"]
+atlas = ExtResource("1_6tnxb")
+region = Rect2(112, 0, 16, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1568q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s7xj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ro1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqakk")
+}],
+"loop": true,
+"name": &"run",
+"speed": 18.0
+}]
