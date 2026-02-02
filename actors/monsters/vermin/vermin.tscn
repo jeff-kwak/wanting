@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c1cd3c3lji2is" path="res://affectors/abilities/change_direction/change_direction.tscn" id="3_wfhxm"]
 [ext_resource type="PackedScene" uid="uid://c34uwtsts7g0v" path="res://affectors/abilities/attack/attack.tscn" id="4_xbq0e"]
 [ext_resource type="PackedScene" uid="uid://docb3cl628uvj" path="res://affectors/status_effects/hurt/hurt.tscn" id="5_rix7b"]
+[ext_resource type="Script" uid="uid://bdaudhadsy2op" path="res://actors/monsters/vermin/vermin_visual.gd" id="6_wfhxm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylxbp"]
 size = Vector2(12, 22)
@@ -36,6 +37,10 @@ debug_color = Color(0.92871636, 0.19566953, 0.4653691, 0.41960785)
 
 [node name="Visual" type="AnimatedSprite2D" parent="." unique_id=1192864004]
 position = Vector2(0, -16)
+script = ExtResource("6_wfhxm")
+
+[node name="ChanceTimer" type="Timer" parent="." unique_id=1054532812]
 
 [connection signal="area_entered" from="Monster" to="." method="_on_body_area_entered"]
 [connection signal="area_exited" from="Monster" to="." method="_on_body_area_exited"]
+[connection signal="timeout" from="ChanceTimer" to="." method="_on_chance_timer_timeout"]

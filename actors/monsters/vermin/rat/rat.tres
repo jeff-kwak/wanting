@@ -10,4 +10,7 @@ description = "Dirty little rat"
 attack = 1
 speed = 100.0
 sprite_frames = ExtResource("2_qha66")
+chance_timer = 2.0
+chance_to_stop = 0.5
+chance_to_change_direction = 0.5
 metadata/_custom_type_script = "uid://bsgmyk2curetq"

@@ -12,8 +12,12 @@ They are the lowest tier of monsters.
 @export var death_opacity: float = 0.8
 
 
-@onready var _visual: AnimatedSprite2D = $Visual
+@onready var _visual: VerminVisual = $Visual
 @onready var _collision_area: Area2D = $Monster
+@onready var _chance_timer: Timer = $ChanceTimer
+
+
+var _is_stopped: bool = false
 
 
 func _ready():
@@ -58,9 +62,32 @@ func _on_death() -> void:
 
 
 func _vermin_start() -> void:
-    _visual.play(Global.ANIM_RUN)
     activate_affector(Global.AFFECTOR.MOVE)
+    _visual.run()
 
     # randomly choose a direction
     if randi() % 2 == 0:
+        activate_affector(Global.AFFECTOR.CHANGE_DIRECTION)
+
+    if data.chance_timer > 0.0:
+        _chance_timer.wait_time = data.chance_timer
+        _chance_timer.start()
+
+
+
+func _on_chance_timer_timeout() -> void:
+    var roll_for_stop: float = randf()
+    var roll_for_change_direction: float = randf()
+
+    if roll_for_stop < data.chance_to_stop:
+        if _is_stopped:
+            activate_affector(Global.AFFECTOR.MOVE)
+            _visual.run()
+            _is_stopped = false
+        else:
+            deactivate_affector(Global.AFFECTOR.MOVE)
+            _visual.idle()
+            _is_stopped = true
+
+    if roll_for_change_direction < data.chance_to_change_direction:
         activate_affector(Global.AFFECTOR.CHANGE_DIRECTION)
