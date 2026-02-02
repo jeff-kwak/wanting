@@ -57,6 +57,7 @@ func _ready() -> void:
 
     _fsm.setup(State.BATTLE).bind($States/Battle) \
         .on_enter(_enter_battle) \
+        .on_exit(_exit_battle) \
         .permit(Trigger.BATTLE_ENDED, State.MOVING) \
         .permit(Trigger.DIED, State.DEAD)
 
@@ -135,12 +136,13 @@ func _on_level_exited(actor: Actor, _level: Level) -> void:
     _fsm.send(Trigger.LEVEL_EXITED)
 
 
+var _attack_failed: bool = false
+
 func _on_attack_failed(_winner: Actor, loser: Actor) -> void:
     if loser != self:
         return
 
-    print("player: attack failed, changing direction")
-    activate_affector(Global.AFFECTOR.CHANGE_DIRECTION)
+    _attack_failed = true
 
 
 func _on_hurt(amount: int) -> void:
@@ -191,3 +193,10 @@ func _enter_battle() -> void:
         await _battle_animation.finished
 
     _fsm.send(Trigger.BATTLE_ENDED)
+
+
+func _exit_battle() -> void:
+    if _attack_failed:
+        activate_affector(Global.AFFECTOR.CHANGE_DIRECTION)
+
+    _attack_failed = false
