@@ -180,6 +180,7 @@ func apply_damage(amount: int) -> void:
     """
     var affector: Affector = _affectors.get(Global.AFFECTOR.INVINCIBLE)
     if affector and affector.is_active:
+        push_error("************ INVINCIBLE ************")
         print("actor: %s is invincible and takes no damage!" % self.name)
         return
 
@@ -203,6 +204,12 @@ func activate_affector(kind: Global.AFFECTOR, context := { }) -> void:
 func deactivate_affector(kind: Global.AFFECTOR) -> void:
     if kind in _affectors:
         print("actor: deactivating affector %s for actor %s" % [Global.AFFECTOR.keys()[kind], self.name])
+        _affectors[kind].deactivate()
+
+
+func deactivate_all_affectors() -> void:
+    print("actor: deactivating all affectors for actor %s" % self.name)
+    for kind in _affectors:
         _affectors[kind].deactivate()
 
 

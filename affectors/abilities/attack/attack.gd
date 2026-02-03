@@ -9,6 +9,7 @@ Target another actor and apply a status effect of hurt to them.
 
 const PARAM_TARGET: StringName = "target"
 
+
 const DAMAGE: int = 1
 
 

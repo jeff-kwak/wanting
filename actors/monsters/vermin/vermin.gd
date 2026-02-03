@@ -41,7 +41,10 @@ func _on_player_enter(player: Actor) -> void:
 
 func _on_death() -> void:
     print("vermin: vermin %s has died" % name)
-    deactivate_affector(Global.AFFECTOR.MOVE)
+    # deactivate_affector(Global.AFFECTOR.MOVE)
+    deactivate_all_affectors()
+    disable_all_affectors()
+    _chance_timer.stop()
     _visual.stop()
     _collision_area.set_deferred("monitorable", false)
     _collision_area.set_deferred("monitoring", false)

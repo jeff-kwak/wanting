@@ -1,17 +1,17 @@
 # Current
 - [x] Pickup weapon
 - [x] Pickup shield
-- [ ] Second level monster
-- [ ] Second level sword
+- [x] Second level monster
 
 # Next Goal
+- [ ] Second level sword
+- [ ] Coin and treasure pickups (game has to be about the loot)
+- [ ] Monster loot drop
+- [ ] Smart respawn so player doesn't die when respawning
+- [ ] Music and sound effects
+- [ ] Dont spawn pickups on top of each other
 
 # Future
-- Coin and treasure pickups (game has to be about the loot)
-- Smart respawn so player doesn't die when respawning
-- Music and sound effects
-- Dont spawn pickups on top of each other
-- Monster loot drop
 - PE: Show where a hurt happens
 - PE: Doors open and shut
 - PE: Monster Death

@@ -44,6 +44,8 @@ func activate(context := { }) -> void:
         @warning_ignore("redundant_await") # some abilities are async
         is_active = await _on_activate(context)
         EventBus.affector_activated.emit(actor, self)
+        if is_active and cool_down > 0.0:
+            _cooldown_timer = cool_down
 
 
 func deactivate() -> void:

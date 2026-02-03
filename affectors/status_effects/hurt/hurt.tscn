@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://docb3cl628uvj"]
+[gd_scene format=3 uid="uid://docb3cl628uvj"]
 
 [ext_resource type="Script" uid="uid://cmxr1mbt25efd" path="res://affectors/status_effects/hurt/hurt.gd" id="1_gav2o"]
 
-[node name="Hurt" type="Node"]
+[node name="Hurt" type="Node" unique_id=2104432263]
 script = ExtResource("1_gav2o")

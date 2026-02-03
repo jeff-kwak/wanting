@@ -59,6 +59,8 @@ func _ready() -> void:
     EventBus.actor_killed.connect(_on_actor_killed)
     EventBus.item_picked_up.connect(_on_item_picked_up)
     EventBus.item_dropped.connect(_on_item_dropped)
+    EventBus.affector_activated.connect(_on_affector_activated)
+    EventBus.affector_cooldown_completed.connect(_on_affector_cooldown_completed)
 
     _fsm.setup(State.LOADING).bind($States/Loading) \
         .on_enter(_enter_loading) \
@@ -336,8 +338,10 @@ func _on_item_picked_up(actor: Actor, item: PickupItem) -> void:
             EventBus.door_unlocked.emit(in_door)
         PickupData.Kind.WEAPON:
             pass
+        PickupData.Kind.SHIELD:
+            pass
         _:
-            push_warning("game_play: unhandled item picked up kind %s" % [str(item.kind)])
+            push_warning("game_play: unhandled item picked up kind %s" % [PickupData.Kind.keys()[item.kind]])
 
 
 func _on_item_dropped(actor: Actor, item: PickupItem) -> void:
@@ -353,6 +357,23 @@ func _on_item_dropped(actor: Actor, item: PickupItem) -> void:
             EventBus.door_locked.emit(in_door)
         PickupData.Kind.WEAPON:
             pass
+        PickupData.Kind.SHIELD:
+            pass
         _:
-            push_warning("game_play: unhandled item dropped kind %s" % [str(item.kind)])
+            push_warning("game_play: unhandled item dropped kind %s" % [PickupData.Kind.keys()[item.kind]])
+
+
+func _on_affector_activated(actor: Actor, affector: Affector) -> void:
+    if actor is not Player or affector.kind != Global.AFFECTOR.HURT:
+        return
+
+    print("******** game_play: affector %s activated for player %s ***" % [Global.AFFECTOR.keys()[affector.kind], actor.name])
+    pass
+
+
+func _on_affector_cooldown_completed(actor: Actor, affector: Affector) -> void:
+    if actor is not Player or affector.kind != Global.AFFECTOR.HURT:
+        return
+
+    print("******** game_play: affector %s cooldown completed for player %s ***" % [Global.AFFECTOR.keys()[affector.kind], actor.name])
     pass

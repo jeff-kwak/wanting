@@ -2,6 +2,22 @@
 
 [ext_resource type="Texture2D" uid="uid://8w7syfluspdy" path="res://assets/0x72/0x72_DungeonTilesetII_v1.7.png" id="1_4l7ie"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2av15"]
+atlas = ExtResource("1_4l7ie")
+region = Rect2(368, 352, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbst5"]
+atlas = ExtResource("1_4l7ie")
+region = Rect2(384, 352, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0hbf"]
+atlas = ExtResource("1_4l7ie")
+region = Rect2(400, 352, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0ob3"]
+atlas = ExtResource("1_4l7ie")
+region = Rect2(416, 352, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7hu56"]
 atlas = ExtResource("1_4l7ie")
 region = Rect2(416, 352, 16, 32)
@@ -20,6 +36,23 @@ region = Rect2(464, 352, 16, 32)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2av15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbst5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0hbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0ob3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7hu56")

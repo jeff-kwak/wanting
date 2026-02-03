@@ -12,4 +12,4 @@ func idle() -> void:
 
 
 func _ready() -> void:
-    play(Global.ANIM_IDLE)
+    play.call_deferred(Global.ANIM_IDLE)

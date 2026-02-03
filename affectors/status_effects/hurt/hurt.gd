@@ -23,4 +23,5 @@ func _on_activate(context := { }) -> bool:
     print("hurt: applying %d damage to actor %s" % [damage, actor.name])
     actor.apply_damage(damage)
 
-    return true # apply cooldown
+    return true # active start cooldown
+

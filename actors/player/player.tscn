@@ -161,7 +161,7 @@ is_enabled = true
 [node name="Effects" type="Node" parent="." unique_id=1900881597]
 
 [node name="Hurt" parent="Effects" unique_id=1726980123 instance=ExtResource("7_lsln6")]
-cool_down = 0.5
+cool_down = 1.0
 
 [node name="Invincible" parent="Effects" unique_id=53342448 instance=ExtResource("10_7aotg")]
 script = ExtResource("11_k67x5")
