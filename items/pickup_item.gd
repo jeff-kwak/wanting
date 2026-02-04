@@ -1,4 +1,3 @@
-@tool
 class_name PickupItem
 extends Node2D
 
@@ -38,6 +37,14 @@ var pickup_name: String:
             return pickup_data.pickup_name
         else:
             return "Unknown Item"
+
+
+var hold_position: Vector2:
+    get:
+        if pickup_data:
+            return pickup_data.hold_position
+        else:
+            return Vector2.ZERO
 
 
 var metadata: Dictionary = { }

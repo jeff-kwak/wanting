@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://52udc6odie46" path="res://items/pickup_data.gd" id="5_dbinq"]
 [ext_resource type="Resource" uid="uid://yeinnq3q5qr7" path="res://items/shields/basic_shield.tres" id="5_j0fn3"]
 [ext_resource type="Resource" uid="uid://b3ld2p7qso31b" path="res://items/weapons/dagger_weapon.tres" id="6_kmlcm"]
+[ext_resource type="Resource" uid="uid://dd5qqy87omswk" path="res://items/weapons/rusty_sword.tres" id="9_jqvvq"]
 
 [resource]
 script = ExtResource("1_fep41")
@@ -17,12 +18,12 @@ floor_tile_coords = Array[Vector3i]([Vector3i(0, 1, 4), Vector3i(0, 2, 4), Vecto
 base_tile_coords = Array[Vector3i]([Vector3i(0, 6, 8)])
 wall_top_tile_coords = Array[Vector3i]([Vector3i(0, 1, 0), Vector3i(0, 2, 0), Vector3i(0, 3, 0)])
 chance_for_monster = 0.56
-chance_for_weapon = 0.3
-chance_for_shield = 0.2
+chance_for_weapon = 0.55
+chance_for_shield = 0.56
 monster_weight = Array[float]([1.5, 1.0])
 monsters = Array[ExtResource("1_busfa")]([ExtResource("2_iu0tp"), ExtResource("3_84dl5")])
-weapon_weight = Array[float]([1.0])
-weapons = Array[ExtResource("5_dbinq")]([ExtResource("6_kmlcm")])
+weapon_weight = Array[float]([1.0, 1.0])
+weapons = Array[ExtResource("5_dbinq")]([ExtResource("6_kmlcm"), ExtResource("9_jqvvq")])
 shield_weight = Array[float]([1.0])
 shields = Array[ExtResource("5_dbinq")]([ExtResource("5_j0fn3")])
 metadata/_custom_type_script = "uid://bq1af7lgj3cre"

@@ -179,12 +179,12 @@ func _on_add_key_to_inventory() -> void:
 
 func _on_add_weapon_to_inventory() -> void:
     weapon_slot.reparent.call_deferred(_weapon_slot_marker)
-    weapon_slot.call_deferred("set_position", Vector2.ZERO)
+    weapon_slot.call_deferred("set_position", weapon_slot.hold_position)
 
 
 func _on_add_shield_to_inventory() -> void:
     shield_slot.reparent.call_deferred(_shield_slot_marker)
-    shield_slot.call_deferred("set_position", Vector2.ZERO)
+    shield_slot.call_deferred("set_position", shield_slot.hold_position)
 
 
 func _enter_battle() -> void:

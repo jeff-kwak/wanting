@@ -16,3 +16,4 @@ enum Kind
 @export var attack: int = 0
 @export var defense: int = 0
 @export var attack_animation: String = ""
+@export var hold_position: Vector2 = Vector2.ZERO
