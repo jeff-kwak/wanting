@@ -1,4 +1,3 @@
-@tool
 class_name LevelCounterUi
 extends Label
 
@@ -8,7 +7,7 @@ var level_number: int = 999:
         return level_number
     set(value):
         level_number = value
-        text = "Level: %d" % (level_number + 1)
+        text = "%d" % (level_number + 1)
 
 
 func _ready() -> void:

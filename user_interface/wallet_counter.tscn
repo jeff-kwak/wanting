@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d3hlkhgjosqo2"]
+
+[ext_resource type="Theme" uid="uid://wo8sfv71mifr" path="res://user_interface/ui.tres" id="1_fodvk"]
+[ext_resource type="Script" uid="uid://16rnxslem3o7" path="res://user_interface/wallet_counter.gd" id="1_rmbd7"]
+
+[node name="WalletCounter" type="RichTextLabel" unique_id=1437698386]
+custom_minimum_size = Vector2(10, 9)
+offset_right = 58.0
+offset_bottom = 9.0
+theme = ExtResource("1_fodvk")
+bbcode_enabled = true
+text = "[img]res://assets/0x72/single-coin.png[/img] 00000"
+script = ExtResource("1_rmbd7")

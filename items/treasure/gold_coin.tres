@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PickupData" format=3 uid="uid://q55nbkjxosys"]
+
+[ext_resource type="Script" uid="uid://52udc6odie46" path="res://items/pickup_data.gd" id="1_dg0jk"]
+[ext_resource type="Texture2D" uid="uid://ospvn3uiasjh" path="res://assets/0x72/0x72_atlas.tres" id="2_1c01q"]
+[ext_resource type="SpriteFrames" uid="uid://7gt0ysqmep5k" path="res://items/treasure/gold_coin_frames.tres" id="2_wfqym"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfqym"]
+atlas = ExtResource("2_1c01q")
+region = Rect2(288, 384, 8, 8)
+
+[resource]
+script = ExtResource("1_dg0jk")
+pickup_name = "Gold Coin"
+kind = 4
+gold_value = 1
+visual_texture = SubResource("AtlasTexture_wfqym")
+sprite_frames = ExtResource("2_wfqym")
+metadata/_custom_type_script = "uid://52udc6odie46"

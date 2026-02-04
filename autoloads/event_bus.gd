@@ -19,6 +19,7 @@ signal actor_killed(actor: Actor)
 signal attack_succeded(winner: Actor, loser: Actor)
 signal attack_failed(winner: Actor, loser: Actor)
 signal actor_stats_changed(actor: Actor)
+signal actor_wallet_changed(actor: Actor, wallet_amount: int)
 
 
 ### ABILITY management signals

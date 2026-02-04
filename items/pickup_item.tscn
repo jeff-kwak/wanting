@@ -11,6 +11,8 @@ script = ExtResource("1_icyau")
 
 [node name="Visual" type="Sprite2D" parent="." unique_id=50714310]
 
+[node name="AnimatedVisual" type="AnimatedSprite2D" parent="." unique_id=2140438360]
+
 [node name="TouchBox" type="Area2D" parent="." unique_id=1860752527]
 collision_layer = 4096
 

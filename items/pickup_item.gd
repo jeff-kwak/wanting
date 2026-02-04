@@ -11,8 +11,16 @@ const META_DOOR = "door"
     set(value):
         pickup_data = value
 
-        if _visual:
+        if _animated and pickup_data.sprite_frames:
+            _animated.frames = pickup_data.sprite_frames
+            _animated.play("default")
+            _animated.visible = true
+            _visual.visible = false
+
+        if _visual and _visual.visible:
             _visual.texture = pickup_data.visual_texture
+            _animated.visible = false
+            _visual.visible = true
 
 
 @export var animation_amplitude: float = 4.0
@@ -54,6 +62,7 @@ var _floating_tween: Tween = null
 
 
 @onready var _visual: Sprite2D = $Visual
+@onready var _animated: AnimatedSprite2D = $AnimatedVisual
 @onready var _touch_box: Area2D = $TouchBox
 
 

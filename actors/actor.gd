@@ -41,6 +41,13 @@ var shield_slot: PickupItem:
         shield_slot = value
 
 
+var wallet: int = 0:
+    get:
+        return wallet
+    set(value):
+        wallet = value
+
+
 var current_health: int = 0:
     get:
         return current_health
@@ -95,7 +102,7 @@ func change_direction() -> void:
 
 func add_inventory(item: PickupItem) -> void:
     """
-    Adds the specified item to the actor's inventory.
+    Adds the specified item to the actor's inventory or wallet.
     """
     print("actor: adding item %s (%s) to inventory of actor %s" % [item.pickup_name, item.name, self.name])
     item.reparent.call_deferred(self)
@@ -122,6 +129,12 @@ func add_inventory(item: PickupItem) -> void:
             data.defense += item.pickup_data.defense
             EventBus.actor_stats_changed.emit(self)
             _on_add_shield_to_inventory()
+        PickupData.Kind.TREASURE:
+            wallet += item.pickup_data.gold_value
+            EventBus.actor_wallet_changed.emit(self, wallet)
+            _on_add_money_to_wallet()
+            # consume treasure immediately after adding to wallet
+            item.queue_free()
         _:
             pass
 
@@ -281,6 +294,10 @@ func _on_add_weapon_to_inventory() -> void:
 
 
 func _on_add_shield_to_inventory() -> void:
+    pass # To be overridden in subclasses
+
+
+func _on_add_money_to_wallet() -> void:
     pass # To be overridden in subclasses
 
 

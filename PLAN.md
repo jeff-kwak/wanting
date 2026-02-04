@@ -1,31 +1,43 @@
+# Design
+- Game should feel like a rougelike pacman
+- Game needs to be all about the loot! Fits in with the idea of a
+  "disease/curse" of greed: "The Wanting"
+
 # Current
 - [x] Second level sword
-- [ ] Coin and treasure pickups (game has to be about the loot)
+- [x] Coin and treasure pickups (game has to be about the loot)
+- [ ] Treasure chest: spawns treasure... decide what to put in ahead of time or
+  does it have it's own little "loot table"?
 - [ ] Monster loot drop
 - [ ] Smart respawn so player doesn't die when respawning
 - [ ] Music and sound effects
 - [ ] Dont spawn pickups on top of each other
 - [ ] bug: stats not reset on death and on drop maybe
 - [ ] bug: does not drop items on death
+- [ ] bug: itch deployment is so dark
 
 # Next Goal
+- [ ] Main menu
 - [ ] Add the cage for entrance and exits
 - [ ] Work on the game play (make it a game)
     - todo: decide on weapon destruction
     - todo: scoring and exiting the level
     - todo: decide in battle if winner take all or damage even in victory
+- [ ] Result Screen and Tally
 - [ ] Start the game "slower".
 - [ ] UI: Make "ghosts" "blue" when they can be defeated.
-- [ ] UI: Incorporate the "Stats" into the Game
+- [ ] UI: Incorporate the "Stats" into the Main Game instead of the way you have
+  them on the corners. Simplify this.
+- [ ] Add a little random horizontal movement on a drop of pickup item
+- [ ] Pickup items should push away from themselves (no physics though -- maybe).
 - [ ] bug: annoying item rotation on drop and pickup
-- [ ] Add a little random horizontal movement on a drop
 
 # Future
+- Character selection and loadout (vampire surviror-ish)
 - PE: Show where a hurt happens
 - PE: Doors open and shut
 - PE: Monster Death
 - Some sort of XP level per character
-- Character selection and loadout (vampire surviror-ish)
 - Ranged weapons
 - Sewer biome
 - Dark biome

@@ -88,6 +88,8 @@ func _on_pickup_item_enter(item: PickupItem) -> void:
             activate_affector(Global.AFFECTOR.PICKUP_ITEM, { PickupAbility.PARAM_ITEM: item })
         PickupData.Kind.SHIELD:
             activate_affector(Global.AFFECTOR.PICKUP_ITEM, { PickupAbility.PARAM_ITEM: item })
+        PickupData.Kind.TREASURE:
+            activate_affector(Global.AFFECTOR.PICKUP_ITEM, { PickupAbility.PARAM_ITEM: item })
         _:
             push_warning("player: unhandled pickup item kind %s" % [str(item.kind)])
 

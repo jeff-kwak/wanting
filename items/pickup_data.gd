@@ -8,12 +8,16 @@ enum Kind
     KEY,
     WEAPON,
     SHIELD,
+    TREASURE,
 }
 
 @export var pickup_name: String = "Unnamed Item"
 @export var kind: Kind = Kind.NONE
-@export var visual_texture: Texture2D
 @export var attack: int = 0
 @export var defense: int = 0
+@export var gold_value: int = 0
 @export var attack_animation: String = ""
 @export var hold_position: Vector2 = Vector2.ZERO
+
+@export var visual_texture: Texture2D
+@export var sprite_frames: SpriteFrames

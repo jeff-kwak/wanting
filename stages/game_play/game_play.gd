@@ -133,6 +133,7 @@ func _spawn_next_level() -> void:
     _spawn_monsters(level_data[0]) # TODO: lookup table based on depth
     _spawn_weapons(level_data[0]) # TODO: lookup table based on depth
     _spawn_shields(level_data[0]) # TODO: lookup table based on depth
+    _spawn_treasures(level_data[0]) # TODO: lookup table based on depth
 
 
 func _spawn_level(pos: Vector2, data: LevelData) -> void:
@@ -289,6 +290,21 @@ func _spawn_shields(data: LevelData) -> void:
     shield_instance.pickup_data = shield_data
     shield_instance.name = "%s_%d" % [shield_data.pickup_name, _last_level_index + 1]
     level.add_child(shield_instance)
+
+
+func _spawn_treasures(data: LevelData) -> void:
+    if randf() > data.chance_for_treasure:
+        return # No treasure this time
+
+    var treasure_index = Toolbox.pick_weighted_index(data.treasure_weight)
+    var treasure_data: PickupData = data.treasures[treasure_index]
+    var level: Level = _level_buffer[_to_ind(_last_level_index)]
+
+    var treasure_instance: PickupItem = _pickup_scene.instantiate()
+    treasure_instance.position = _in_level_position(_level_buffer[_to_ind(_last_level_index)])
+    treasure_instance.pickup_data = treasure_data
+    treasure_instance.name = "%s_%d" % [treasure_data.pickup_name, _last_level_index + 1]
+    level.add_child(treasure_instance)
 
 
 func _on_actor_killed(_actor: Actor) -> void:
