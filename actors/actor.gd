@@ -245,6 +245,10 @@ func disable_all_affectors() -> void:
 
 
 ### Sensoring and interaction methods ###
+func _on_chest_enter(_chest: Chest) -> void:
+    pass # To be overridden in subclasses
+
+
 func _on_pickup_item_enter(_item: PickupItem) -> void:
     pass # To be overridden in subclasses
 
@@ -318,6 +322,8 @@ func _on_body_area_entered(area: Area2D) -> void:
             _on_monster_enter(monster)
         var player when player is Actor and player.is_in_group(Global.GROUP_PLAYER):
             _on_player_enter(player)
+        var chest when chest is Chest:
+            _on_chest_enter(chest)
         _:
             push_warning("actor: enter unhandled area type %s" % parent.name)
 

@@ -6,33 +6,34 @@
 # Current
 - [x] Second level sword
 - [x] Coin and treasure pickups (game has to be about the loot)
-- [ ] Treasure chest: spawns treasure... decide what to put in ahead of time or
-  does it have it's own little "loot table"?
+- [ ] Treasure chest: spawns treasure
+- [ ] Add a little random horizontal movement on a drop of pickup item
+- [ ] Pickup items should push away from themselves (no physics though -- maybe).
 - [ ] Monster loot drop
-- [ ] Smart respawn so player doesn't die when respawning
+- [ ] Dont spawn pickups on top of each other or on doors
 - [ ] Music and sound effects
-- [ ] Dont spawn pickups on top of each other
+- [ ] Smart respawn so player doesn't die when respawning
 - [ ] bug: stats not reset on death and on drop maybe
 - [ ] bug: does not drop items on death
 - [ ] bug: itch deployment is so dark
+- [ ] first level mouse blends in with background
 
 # Next Goal
-- [ ] Main menu
-- [ ] Add the cage for entrance and exits
 - [ ] Work on the game play (make it a game)
     - todo: decide on weapon destruction
     - todo: scoring and exiting the level
     - todo: decide in battle if winner take all or damage even in victory
 - [ ] Result Screen and Tally
+- [ ] Main menu
+- [ ] Add the cage for entrance and exits
 - [ ] Start the game "slower".
 - [ ] UI: Make "ghosts" "blue" when they can be defeated.
 - [ ] UI: Incorporate the "Stats" into the Main Game instead of the way you have
   them on the corners. Simplify this.
-- [ ] Add a little random horizontal movement on a drop of pickup item
-- [ ] Pickup items should push away from themselves (no physics though -- maybe).
 - [ ] bug: annoying item rotation on drop and pickup
 
 # Future
+- Better spawn system
 - Character selection and loadout (vampire surviror-ish)
 - PE: Show where a hurt happens
 - PE: Doors open and shut

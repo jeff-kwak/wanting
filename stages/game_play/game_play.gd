@@ -29,6 +29,7 @@ const MONSTER_SPAWN_Y_DISTANCE: int = 12
 @export var door_scene: PackedScene
 @export var vermin_scene: PackedScene
 @export var player_scene: PackedScene
+@export var chest_scene: PackedScene
 
 
 @export_category("Level Generation")
@@ -296,6 +297,27 @@ func _spawn_treasures(data: LevelData) -> void:
     if randf() > data.chance_for_treasure:
         return # No treasure this time
 
+    if randf() <= data.chance_for_chest:
+        # spawn a chest instead of a treasure (lots of treasure)
+        var chest_instance: Chest = chest_scene.instantiate()
+        chest_instance.position = _in_level_position(_level_buffer[_to_ind(_last_level_index)])
+        chest_instance.position += Vector2(0, MONSTER_SPAWN_Y_DISTANCE)
+        chest_instance.name = "Chest_%d" % (_last_level_index + 1)
+        _level_buffer[_to_ind(_last_level_index)].add_child(chest_instance)
+
+        # add some treasure to the chest
+        # TODO: tweak the number of treasures and their level based on some
+        # table. The loot/monster tables needs a good overall and the spawn sys
+        var number: int = randi() % 7 # 0-6 treasures in a chest
+        for i in range(number):
+            # you could also put weapons or any pickup in here
+            var chest_item_index = Toolbox.pick_weighted_index(data.treasure_weight)
+            var chest_item_data: PickupData = data.treasures[chest_item_index]
+            chest_instance.add_to_chest(chest_item_data)
+
+        return
+
+
     var treasure_index = Toolbox.pick_weighted_index(data.treasure_weight)
     var treasure_data: PickupData = data.treasures[treasure_index]
     var level: Level = _level_buffer[_to_ind(_last_level_index)]
@@ -356,6 +378,8 @@ func _on_item_picked_up(actor: Actor, item: PickupItem) -> void:
             pass
         PickupData.Kind.SHIELD:
             pass
+        PickupData.Kind.TREASURE:
+            pass
         _:
             push_warning("game_play: unhandled item picked up kind %s" % [PickupData.Kind.keys()[item.kind]])
 
@@ -374,6 +398,8 @@ func _on_item_dropped(actor: Actor, item: PickupItem) -> void:
         PickupData.Kind.WEAPON:
             pass
         PickupData.Kind.SHIELD:
+            pass
+        PickupData.Kind.TREASURE:
             pass
         _:
             push_warning("game_play: unhandled item dropped kind %s" % [PickupData.Kind.keys()[item.kind]])

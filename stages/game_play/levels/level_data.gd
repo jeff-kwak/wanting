@@ -19,6 +19,8 @@ var chance_for_weapon: float = 0.1
 var chance_for_shield: float = 0.1
 @export_range(0.0, 1.0, 0.01)
 var chance_for_treasure: float = 0.1
+@export_range(0.0, 1.0, 0.01)
+var chance_for_chest: float = 0.1
 
 @export_category("Monster Table")
 @export var monster_weight: Array[float] = []

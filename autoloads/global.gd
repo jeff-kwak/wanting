@@ -41,8 +41,15 @@ const SIZE_MD: int = int(SIZE_SM * GOLDEN)
 const SIZE_LG: int = int(SIZE_MD * GOLDEN)
 
 
+# Actor animations
 const ANIM_DEATH: StringName = "death"
 const ANIM_IDLE: StringName = "idle"
 const ANIM_RUN: StringName = "run"
 
+# Prop animations
+const ANIM_OPEN: StringName = "open"
+const ANIM_CLOSE: StringName = "close"
+const ANIM_CLOSED: StringName = "closed"
+
+# Battle animations
 const ANIM_SHORT_ATTACK: StringName = "short_attack"

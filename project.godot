@@ -60,6 +60,7 @@ change_direction={
 2d_physics/layer_10="Teleporter"
 2d_physics/layer_11="Doorway"
 2d_physics/layer_13="Pickup"
+2d_physics/layer_14="Chest"
 
 [rendering]
 

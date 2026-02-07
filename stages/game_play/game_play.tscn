@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bq1af7lgj3cre" path="res://stages/game_play/levels/level_data.gd" id="3_nwoy8"]
 [ext_resource type="PackedScene" uid="uid://dxsce0j7nusjo" path="res://stages/game_play/door.tscn" id="3_pgcq5"]
 [ext_resource type="PackedScene" uid="uid://ce3woxeak28xn" path="res://actors/monsters/vermin/vermin.tscn" id="4_7lfro"]
+[ext_resource type="PackedScene" uid="uid://b0et7tb6p15qj" path="res://props/chest/chest.tscn" id="6_5ndvo"]
 [ext_resource type="Texture2D" uid="uid://vu885svxvnlg" path="res://assets/environment/side_wall.png" id="6_kg3al"]
 [ext_resource type="Script" uid="uid://dnm08tv1e65nm" path="res://stages/game_play/follow_camera.gd" id="7_bryae"]
 [ext_resource type="Script" uid="uid://ddrtb7s18y2eg" path="res://stages/game_play/side_walls.gd" id="7_d0j52"]
@@ -39,6 +40,7 @@ level_scene = ExtResource("1_1lhju")
 door_scene = ExtResource("3_pgcq5")
 vermin_scene = ExtResource("4_7lfro")
 player_scene = ExtResource("1_8vkgn")
+chest_scene = ExtResource("6_5ndvo")
 level_data = Array[ExtResource("3_nwoy8")]([ExtResource("2_irr8f")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1319360412]

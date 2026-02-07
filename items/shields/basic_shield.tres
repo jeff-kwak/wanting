@@ -11,6 +11,6 @@ region = Rect2(0, 16, 16, 16)
 script = ExtResource("1_m353b")
 pickup_name = "Basic Shield"
 kind = 3
-visual_texture = SubResource("AtlasTexture_tc4eo")
 defense = 1
+visual_texture = SubResource("AtlasTexture_tc4eo")
 metadata/_custom_type_script = "uid://52udc6odie46"

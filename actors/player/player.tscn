@@ -197,7 +197,7 @@ autoplay = "run"
 frame = 1
 frame_progress = 1.0
 
-[node name="Body" type="Area2D" parent="." unique_id=877185136]
+[node name="Body" type="Area2D" parent="." unique_id=877185136 groups=["Player"]]
 position = Vector2(0, -8)
 collision_mask = 5393
 

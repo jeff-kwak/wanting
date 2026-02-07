@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://b0et7tb6p15qj"]
+
+[ext_resource type="Script" uid="uid://cbm2sfvh8l7cu" path="res://props/chest/chest.gd" id="1_mqllg"]
+[ext_resource type="Texture2D" uid="uid://8w7syfluspdy" path="res://assets/0x72/0x72_DungeonTilesetII_v1.7.png" id="1_x3t84"]
+[ext_resource type="Script" uid="uid://ct2or2gt2ih0b" path="res://addons/finite_state_machine/finite_state.gd" id="3_xws33"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnylr"]
+atlas = ExtResource("1_x3t84")
+region = Rect2(336, 400, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpgqm"]
+atlas = ExtResource("1_x3t84")
+region = Rect2(320, 400, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvd2m"]
+atlas = ExtResource("1_x3t84")
+region = Rect2(304, 400, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqllg"]
+atlas = ExtResource("1_x3t84")
+region = Rect2(304, 400, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xws33"]
+atlas = ExtResource("1_x3t84")
+region = Rect2(304, 400, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gf84"]
+atlas = ExtResource("1_x3t84")
+region = Rect2(320, 400, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn48y"]
+atlas = ExtResource("1_x3t84")
+region = Rect2(336, 400, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qnylr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnylr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpgqm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvd2m")
+}],
+"loop": false,
+"name": &"close",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqllg")
+}],
+"loop": false,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xws33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gf84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pn48y")
+}],
+"loop": false,
+"name": &"open",
+"speed": 18.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ebent"]
+size = Vector2(16, 14)
+
+[node name="Chest" type="Node2D" unique_id=95010536]
+script = ExtResource("1_mqllg")
+
+[node name="Visual" type="AnimatedSprite2D" parent="." unique_id=143312596]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_qnylr")
+animation = &"close"
+frame = 2
+frame_progress = 1.0
+
+[node name="ChestBox" type="Area2D" parent="." unique_id=60794093]
+collision_layer = 8192
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChestBox" unique_id=119744351]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ebent")
+debug_color = Color(0.55182946, 0.5612405, 0.13992578, 0.41960785)
+
+[node name="States" type="Node" parent="." unique_id=1447523322]
+
+[node name="Open" type="Node" parent="States" unique_id=31713692]
+script = ExtResource("3_xws33")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[node name="Closed" type="Node" parent="States" unique_id=197579633]
+script = ExtResource("3_xws33")
+metadata/_custom_type_script = "uid://ct2or2gt2ih0b"
+
+[connection signal="area_entered" from="ChestBox" to="." method="_on_chest_box_area_entered"]
